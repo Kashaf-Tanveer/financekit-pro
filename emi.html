@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free EMI Calculator online. Calculate home loan, car loan, and personal loan EMI instantly. Includes amortization table, year-wise chart, and extra payment savings calculator. No sign-up.">
+  <title>EMI Calculator Online — Home Loan, Car Loan, Personal Loan | FinanceKit Pro</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+  <link rel="canonical" href="https://financekitpro.com/emi.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <meta property="og:title" content="EMI Calculator Pakistan — Home, Car, Personal Loan | FinanceKit Pro">
+  <meta property="og:description" content="Calculate EMI for any loan type. Free, instant, with charts and amortization schedule.">
+  <meta property="og:type" content="website">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "EMI Calculator Pakistan",
+    "description": "Free online EMI calculator for home loan, car loan, personal loan and education loan.",
+    "applicationCategory": "FinanceApplication",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PKR" },
+    "url": "https://financekitpro.com/emi.html"
+  }
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">💰 FinanceKit <span>Pro</span></a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="emi.html" class="active">EMI Calculator</a>
+        <a href="loan.html">Loan Calculator</a>
+        <a href="currency.html">Currency</a>
+        <a href="calculator.html">Calculator</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <button class="theme-toggle" aria-label="Toggle dark mode"><span class="toggle-knob">☀</span></button>
+        <button class="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mobile-nav">
+    <a href="index.html">🏠 Home</a>
+    <a href="emi.html">📊 EMI Calculator</a>
+    <a href="loan.html">🏦 Loan Calculator</a>
+    <a href="currency.html">💱 Currency Converter</a>
+    <a href="calculator.html">🔢 Calculator</a>
+  </nav>
+
+  <main>
+    <h1 class="page-title">📊 EMI Calculator</h1>
+    <p class="page-subtitle">Calculate your Equated Monthly Installment for any loan type — instantly and accurately</p>
+
+    <!-- AD BANNER TOP -->
+    <div class="ad-banner">
+      <p>[ Google AdSense — 728×90 ] <!-- Replace with AdSense script --></p>
+    </div>
+
+    <!-- LOAN TYPE TABS -->
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" role="tab" aria-selected="true"  onclick="switchTab('home')"      id="tab-home">🏠 Home Loan</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" onclick="switchTab('car')"       id="tab-car">🚗 Car Loan</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" onclick="switchTab('personal')"  id="tab-personal">👤 Personal Loan</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" onclick="switchTab('education')" id="tab-education">🎓 Education Loan</button>
+    </div>
+
+    <div class="two-col">
+
+      <!-- LEFT: INPUTS -->
+      <div class="card" style="animation-delay:0.05s;">
+        <h2 class="card-title" id="emi-input-title">Home Loan Details</h2>
+
+        <div class="form-group">
+          <label for="emi-amount-input">Loan Amount (₨)</label>
+          <div class="slider-row">
+            <input type="range"  id="emi-amount-slider" min="10000" max="100000000" step="10000" value="5000000">
+            <input type="number" id="emi-amount-input"  min="1000"  max="100000000" value="5000000">
+          </div>
+          <p id="emi-amount-display" style="font-size:0.78rem;color:var(--text-muted);margin-top:0.3rem;font-family:var(--font-mono);">₨ 50,00,000</p>
+        </div>
+
+        <div class="form-group">
+          <label for="emi-rate-input">Annual Interest Rate (%)</label>
+          <div class="slider-row">
+            <input type="range"  id="emi-rate-slider" min="1" max="36" step="0.1" value="8.5">
+            <input type="number" id="emi-rate-input"  min="0" max="100" step="0.1" value="8.5">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Loan Tenure</label>
+          <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;margin-bottom:0.5rem;">
+            <div class="toggle-group">
+              <button id="emi-tenure-months-btn" onclick="setEMITenureMode('months')">Months</button>
+              <button id="emi-tenure-years-btn" onclick="setEMITenureMode('years')" class="active">Years</button>
+            </div>
+          </div>
+          <div class="slider-row">
+            <input type="range"  id="emi-tenure-slider" min="1" max="30" step="1" value="20">
+            <input type="number" id="emi-tenure-input"  min="1" max="30" value="20">
+          </div>
+          <p id="emi-tenure-display" style="font-size:0.78rem;color:var(--text-muted);margin-top:0.4rem;font-family:var(--font-mono);">= 240 Months</p>
+        </div>
+
+        <button class="btn btn-primary w-full" onclick="calculateEMI()" style="margin-top:0.5rem;">
+          Calculate EMI →
+        </button>
+      </div>
+
+      <!-- RIGHT: RESULTS -->
+      <div style="display:flex;flex-direction:column;gap:1.25rem;">
+
+        <div class="result-box" id="emi-main-result" style="animation-delay:0.1s;">
+          <div class="result-label">Monthly EMI</div>
+          <div class="result-number" id="emi-display">₨ 0</div>
+          <div class="result-sub" id="emi-sub">Enter loan details to calculate</div>
+        </div>
+
+        <div class="card" style="animation-delay:0.15s;padding:1.25rem;">
+          <div class="result-row">
+            <span class="label">Principal Amount</span>
+            <span class="value" id="emi-principal-display">₨ 0</span>
+          </div>
+          <div class="result-row">
+            <span class="label">Total Interest Payable</span>
+            <span class="value" style="color:var(--danger);" id="emi-interest-display">₨ 0</span>
+          </div>
+          <div class="result-row">
+            <span class="label">Total Amount Payable</span>
+            <span class="value" id="emi-total-display">₨ 0</span>
+          </div>
+          <div style="display:flex;gap:0.75rem;margin-top:1rem;">
+            <div style="flex:1;text-align:center;padding:0.85rem;background:rgba(10,22,40,0.05);border-radius:10px;">
+              <div style="font-size:1.3rem;font-weight:800;color:var(--primary);font-family:var(--font-mono);" id="emi-principal-pct">0%</div>
+              <div style="font-size:0.7rem;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-top:0.2rem;">Principal</div>
+            </div>
+            <div style="flex:1;text-align:center;padding:0.85rem;background:rgba(245,166,35,0.08);border-radius:10px;">
+              <div style="font-size:1.3rem;font-weight:800;color:var(--accent);font-family:var(--font-mono);" id="emi-interest-pct">0%</div>
+              <div style="font-size:0.7rem;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-top:0.2rem;">Interest</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="animation-delay:0.20s;">
+          <h3 class="card-title">Principal vs Interest</h3>
+          <div class="chart-wrap">
+            <canvas id="emi-pie-chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BAR CHART -->
+    <div class="card mt-6" style="animation-delay:0.25s;">
+      <h2 class="card-title">Year-wise Breakdown</h2>
+      <div class="chart-wrap" style="height:300px;">
+        <canvas id="emi-bar-chart"></canvas>
+      </div>
+    </div>
+
+    <!-- AD BANNER MID -->
+    <div class="ad-banner">
+      <p>[ Google AdSense — 728×90 ] <!-- Replace with AdSense script --></p>
+    </div>
+
+    <!-- EXTRA PAYMENT -->
+    <div class="extra-payment-section" style="animation-delay:0.1s;">
+      <h3>💡 What if I Pay Extra Every Month?</h3>
+      <p>See how additional monthly payments can save you time and money</p>
+      <div style="display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap;">
+        <div class="form-group" style="flex:1;min-width:200px;margin-bottom:0;">
+          <label for="extra-payment">Extra Monthly Payment (₨)</label>
+          <input type="number" id="extra-payment" placeholder="e.g. 5000" min="0" oninput="calculateWithExtraPayment()">
+        </div>
+      </div>
+      <div class="extra-results">
+        <div class="extra-result-item">
+          <div class="val" id="extra-months-saved">—</div>
+          <div class="lbl">Months Saved</div>
+        </div>
+        <div class="extra-result-item">
+          <div class="val" id="extra-interest-saved">—</div>
+          <div class="lbl">Interest Saved</div>
+        </div>
+        <div class="extra-result-item">
+          <div class="val" id="extra-new-months">—</div>
+          <div class="lbl">New Tenure</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AMORTIZATION TABLE -->
+    <div class="table-section card mt-6" id="emi-amort-section" style="display:none;animation-delay:0.1s;">
+      <div class="flex-between mb-4" style="flex-wrap:wrap;gap:0.5rem;">
+        <h2 class="table-section-title">Amortization Schedule</h2>
+        <button class="btn btn-secondary" onclick="toggleEMIAmortization()" id="emi-amort-toggle-btn" style="font-size:0.82rem;">Show All Months</button>
+      </div>
+      <div class="table-wrap">
+        <table id="emi-amort-table">
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th>Opening Balance</th>
+              <th>EMI</th>
+              <th>Principal Paid</th>
+              <th>Interest Paid</th>
+              <th>Closing Balance</th>
+            </tr>
+          </thead>
+          <tbody id="emi-amort-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- AFFILIATE SECTION -->
+    <div class="affiliate-section">
+      <h3>🏦 Ready to Apply? Get the Best Loan Rates</h3>
+      <p>Compare and apply for loans from top banks and financial institutions in Pakistan</p>
+      <div class="affiliate-cards">
+        <div class="affiliate-card">
+          <h4>🏠 Home Loan</h4>
+          <p>Competitive rates starting from 8% per annum</p>
+          <!-- MONETIZATION: Replace href="#" with your home loan affiliate link -->
+          <a href="#" class="btn-aff-sm" target="_blank" rel="noopener">Apply Now →</a>
+        </div>
+        <div class="affiliate-card">
+          <h4>🚗 Car Loan</h4>
+          <p>Drive your dream car with easy installment plans</p>
+          <!-- MONETIZATION: Replace href="#" with your car loan affiliate link -->
+          <a href="#" class="btn-aff-sm" target="_blank" rel="noopener">Apply Now →</a>
+        </div>
+        <div class="affiliate-card">
+          <h4>👤 Personal Loan</h4>
+          <p>Instant financing for any need, flexible repayment</p>
+          <!-- MONETIZATION: Replace href="#" with your personal loan affiliate link -->
+          <a href="#" class="btn-aff-sm" target="_blank" rel="noopener">Apply Now →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <h2 class="faq-title">Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleEMIFAQ(this)">
+          What is EMI and how is it calculated?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          EMI stands for Equated Monthly Installment — a fixed payment made by a borrower to a lender each month. It is calculated using: EMI = P × r × (1+r)^N ÷ ((1+r)^N − 1), where P = principal, r = monthly interest rate (annual rate ÷ 12 ÷ 100), and N = number of months. Each EMI covers both interest and a portion of the principal.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleEMIFAQ(this)">
+          What happens if I miss an EMI payment?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Missing an EMI has serious consequences: late payment charges (1-2% per month on overdue amount), credit score damage reported to SECP and CIBs, and after 3 consecutive missed payments, the loan may be classified as Non-Performing. Always contact your bank proactively if you anticipate difficulty.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleEMIFAQ(this)">
+          Can I change my EMI amount during the loan tenure?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Yes — through balance transfer (moving to another bank with lower rates), loan restructuring (negotiating new tenure/rate), making prepayments to reduce principal, or for floating rate loans, EMI automatically adjusts when KIBOR rates change. Check your loan agreement for specific prepayment terms.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleEMIFAQ(this)">
+          Which is better — shorter tenure or lower EMI?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Shorter tenure = higher EMI but significantly lower total interest (saving lakhs). Longer tenure = lower EMI but higher total cost. Rule of thumb: keep total EMI below 40-50% of monthly income. If you can afford a higher EMI, shorter tenure is almost always better. Use the "Extra Payment" calculator above to see how even small additional payments dramatically cut your interest.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleEMIFAQ(this)">
+          How does home loan EMI differ from personal loan EMI?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          The formula is the same, but they differ in: interest rate (home loans 8-13% vs personal loans 14-25%), tenure (home loans up to 20-30 years vs personal loans 1-5 years), collateral (home loans secured against property; personal loans usually unsecured), and loan amounts. Home loans may also qualify for tax deductions in Pakistan under certain conditions.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleEMIFAQ(this)">
+          How to calculate EMI for a loan with processing fee?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Processing fees (0.5-2% of loan amount) are usually deducted upfront. To calculate the effective EMI: add the processing fee to your effective principal (since you receive less than sanctioned). For example, on a ₨10 lakh loan with 1% processing fee (₨10,000), you receive ₨9,90,000 but pay EMI on ₨10,00,000 — making the effective rate higher than stated.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="logo">💰 FinanceKit <span>Pro</span></div>
+      <nav class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="loan.html">Loan Calculator</a>
+        <a href="currency.html">Currency</a>
+        <a href="calculator.html">Calculator</a>
+      </nav>
+      <p class="footer-copy">© 2025 FinanceKit Pro — Free Financial Tools for Everyone</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="app.js"></script>
+  <script src="emi.js"></script>
+</body>
+</html>

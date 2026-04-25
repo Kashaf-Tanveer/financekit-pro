@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online currency converter with live exchange rates. Convert PKR, USD, EUR, GBP, AED, SAR and 160+ currencies instantly. Updated every hour.">
+  <title>Currency Converter — Live Exchange Rates PKR USD EUR | FinanceKit Pro</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+  <link rel="canonical" href="https://financekitpro.com/currency.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <meta property="og:title" content="Currency Converter — Live Rates | FinanceKit Pro">
+  <meta property="og:description" content="Convert between 160+ currencies with live exchange rates.">
+  <meta property="og:type" content="website">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">💰 FinanceKit <span>Pro</span></a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="emi.html">EMI Calculator</a>
+        <a href="loan.html">Loan Calculator</a>
+        <a href="currency.html" class="active">Currency</a>
+        <a href="calculator.html">Calculator</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <button class="theme-toggle" aria-label="Toggle dark mode"><span class="toggle-knob">☀</span></button>
+        <button class="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mobile-nav">
+    <a href="index.html">🏠 Home</a>
+    <a href="emi.html">📊 EMI Calculator</a>
+    <a href="loan.html">🏦 Loan Calculator</a>
+    <a href="currency.html">💱 Currency Converter</a>
+    <a href="calculator.html">🔢 Calculator</a>
+  </nav>
+
+  <main>
+    <h1 class="page-title">💱 Currency Converter</h1>
+    <p class="page-subtitle">Live exchange rates updated every hour — 160+ currencies supported</p>
+
+    <div class="card" style="max-width:800px;margin:0 auto;animation-delay:0.05s;position:relative;">
+
+      <!-- Warning -->
+      <div id="rate-warning" class="hidden" style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:0.75rem 1rem;margin-bottom:1.25rem;font-size:0.82rem;color:var(--danger);">
+        ⚠️ Live rates unavailable. Showing cached rates from <span id="cache-date">—</span>.
+      </div>
+
+      <!-- INPUT ROW -->
+      <div class="form-group">
+        <label for="amount">Amount</label>
+        <input type="number" id="amount" value="1" min="0" max="999999999" step="any" placeholder="Enter amount">
+      </div>
+
+      <div class="currency-main-row" style="margin-bottom:1.25rem;">
+        <div>
+          <label for="fromCurrency" style="display:block;font-size:0.8rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;">From</label>
+          <select id="fromCurrency" style="font-family:var(--font-mono);font-size:0.9rem;font-weight:500;letter-spacing:0.01em;"></select>
+        </div>
+        <button class="swap-btn" id="swap-btn" onclick="swapCurrencies()" title="Swap currencies">⇄</button>
+        <div>
+          <label for="toCurrency" style="display:block;font-size:0.8rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;">To</label>
+          <select id="toCurrency" style="font-family:var(--font-mono);font-size:0.9rem;font-weight:500;letter-spacing:0.01em;"></select>
+        </div>
+      </div>
+
+      <!-- LOADER -->
+      <div class="loader-overlay hidden" id="loader-overlay" style="position:absolute;inset:0;border-radius:inherit;background:rgba(255,255,255,0.85);display:flex;align-items:center;justify-content:center;z-index:10;backdrop-filter:blur(4px);">
+        <div class="loader"></div>
+      </div>
+
+      <!-- RESULT -->
+      <div id="result-section" style="border-top:1px solid var(--border);padding-top:1.5rem;margin-top:0.5rem;">
+        <div class="big-result" id="big-result">—</div>
+        <div class="last-updated" id="last-updated">Fetching live rates...</div>
+        <div style="font-size:0.85rem;color:var(--text-muted);padding-bottom:0.5rem;">
+          <span id="rate-detail"></span>
+        </div>
+      </div>
+
+      <!-- QUICK BUTTONS -->
+      <div style="margin-top:0.75rem;">
+        <p style="font-size:0.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Quick Select</p>
+        <div class="quick-btns" id="quick-btns">
+          <button class="quick-btn" onclick="quickSelect('PKR')">🇵🇰 PKR</button>
+          <button class="quick-btn" onclick="quickSelect('USD')">🇺🇸 USD</button>
+          <button class="quick-btn" onclick="quickSelect('EUR')">🇪🇺 EUR</button>
+          <button class="quick-btn" onclick="quickSelect('GBP')">🇬🇧 GBP</button>
+          <button class="quick-btn" onclick="quickSelect('AED')">🇦🇪 AED</button>
+          <button class="quick-btn" onclick="quickSelect('SAR')">🇸🇦 SAR</button>
+          <button class="quick-btn" onclick="quickSelect('CAD')">🇨🇦 CAD</button>
+          <button class="quick-btn" onclick="quickSelect('AUD')">🇦🇺 AUD</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AD BANNER -->
+    <div class="ad-banner" style="max-width:800px;margin:1.5rem auto;">
+      <p>[ Google AdSense — 728×90 ] <!-- Replace with AdSense script --></p>
+    </div>
+
+    <!-- RATE TABLE -->
+    <div class="card mt-6" style="max-width:800px;margin:0 auto;animation-delay:0.1s;">
+      <h2 class="card-title">Exchange Rates — <span id="base-label">USD</span> to Major Currencies</h2>
+      <div class="table-wrap">
+        <table id="rate-table">
+          <thead>
+            <tr>
+              <th style="text-align:left;">Currency</th>
+              <th>Code</th>
+              <th>Rate</th>
+              <th>Inverse</th>
+            </tr>
+          </thead>
+          <tbody id="rate-tbody">
+            <tr><td colspan="4" style="text-align:center;padding:2rem;color:var(--text-muted);">Loading live rates...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="logo">💰 FinanceKit <span>Pro</span></div>
+      <nav class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="emi.html">EMI</a>
+        <a href="loan.html">Loan</a>
+        <a href="calculator.html">Calculator</a>
+      </nav>
+      <p class="footer-copy">© 2025 FinanceKit Pro — Free Financial Tools for Everyone</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="currency.js"></script>
+</body>
+</html>

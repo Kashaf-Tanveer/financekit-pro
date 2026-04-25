@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online loan calculator. Calculate monthly payment, total interest, and see full amortization schedule. Includes pie chart visualization. No sign-up needed.">
+  <title>Loan Calculator — Monthly Payment & Amortization Table | FinanceKit Pro</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+  <link rel="canonical" href="https://financekitpro.com/loan.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <meta property="og:title" content="Loan Calculator — FinanceKit Pro">
+  <meta property="og:description" content="Calculate monthly loan payments, total interest and full amortization schedule for free.">
+  <meta property="og:type" content="website">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Loan Calculator",
+    "description": "Free online loan calculator. Calculate monthly payment, total interest, and amortization schedule.",
+    "applicationCategory": "FinanceApplication",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PKR" },
+    "url": "https://financekitpro.com/loan.html"
+  }
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">💰 FinanceKit <span>Pro</span></a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="emi.html">EMI Calculator</a>
+        <a href="loan.html" class="active">Loan Calculator</a>
+        <a href="currency.html">Currency</a>
+        <a href="calculator.html">Calculator</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <button class="theme-toggle" aria-label="Toggle dark mode"><span class="toggle-knob">☀</span></button>
+        <button class="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mobile-nav">
+    <a href="index.html">🏠 Home</a>
+    <a href="emi.html">📊 EMI Calculator</a>
+    <a href="loan.html">🏦 Loan Calculator</a>
+    <a href="currency.html">💱 Currency Converter</a>
+    <a href="calculator.html">🔢 Calculator</a>
+  </nav>
+
+  <main>
+    <h1 class="page-title">🏦 Loan Calculator</h1>
+    <p class="page-subtitle">Calculate your monthly payment, total interest, and view full repayment schedule</p>
+
+    <div class="two-col">
+
+      <!-- LEFT: INPUTS -->
+      <div class="card" style="animation-delay:0.05s;">
+        <h2 class="card-title">Loan Details</h2>
+
+        <div class="form-group">
+          <label for="loan-amount-input">Loan Amount (₨)</label>
+          <div class="slider-row">
+            <input type="range" id="loan-amount-slider" min="10000" max="100000000" step="10000" value="1000000">
+            <input type="number" id="loan-amount-input" min="1000" max="100000000" value="1000000">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="loan-rate-input">Annual Interest Rate (%)</label>
+          <div class="slider-row">
+            <input type="range"  id="loan-rate-slider" min="1" max="36" step="0.1" value="12">
+            <input type="number" id="loan-rate-input"  min="0" max="100" step="0.1" value="12">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Loan Tenure</label>
+          <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;margin-bottom:0.5rem;">
+            <div class="toggle-group">
+              <button id="tenure-months-btn" class="active" onclick="setTenureMode('months')">Months</button>
+              <button id="tenure-years-btn" onclick="setTenureMode('years')">Years</button>
+            </div>
+          </div>
+          <div class="slider-row">
+            <input type="range"  id="loan-tenure-slider" min="1" max="360" step="1" value="60">
+            <input type="number" id="loan-tenure-input"  min="1" max="360" value="60">
+          </div>
+          <p id="tenure-display" style="font-size:0.78rem;color:var(--text-muted);margin-top:0.4rem;font-family:var(--font-mono);">= 5 Years</p>
+        </div>
+
+        <button class="btn btn-primary w-full" onclick="calculateLoan()" style="margin-top:0.5rem;">
+          Calculate Loan →
+        </button>
+      </div>
+
+      <!-- RIGHT: RESULTS -->
+      <div style="display:flex;flex-direction:column;gap:1.25rem;">
+
+        <div class="result-box" id="loan-main-result" style="animation-delay:0.10s;">
+          <div class="result-label">Monthly Payment</div>
+          <div class="result-number" id="loan-emi-display">₨ 0</div>
+          <div class="result-sub" id="loan-emi-sub">Enter loan details to calculate</div>
+        </div>
+
+        <div class="card" style="animation-delay:0.15s;padding:1.25rem;">
+          <div class="result-row">
+            <span class="label">Principal Amount</span>
+            <span class="value" id="loan-principal-display">₨ 0</span>
+          </div>
+          <div class="result-row">
+            <span class="label">Total Interest</span>
+            <span class="value" style="color:var(--danger);" id="loan-interest-display">₨ 0</span>
+          </div>
+          <div class="result-row">
+            <span class="label">Total Payment</span>
+            <span class="value" id="loan-total-display">₨ 0</span>
+          </div>
+          <div class="result-row">
+            <span class="label">Interest Share</span>
+            <span class="value" id="loan-interest-pct">0%</span>
+          </div>
+        </div>
+
+        <div class="card" style="animation-delay:0.20s;">
+          <h3 class="card-title">Principal vs Interest</h3>
+          <div class="chart-wrap">
+            <canvas id="loan-pie-chart"></canvas>
+          </div>
+        </div>
+
+        <!-- MONETIZATION: Replace href="#" with your affiliate link -->
+        <a href="#" class="btn-affiliate" id="affiliate-loan-btn" target="_blank" rel="noopener">
+          🏦 Apply for Loan — Get Best Rates →
+        </a>
+      </div>
+    </div>
+
+    <!-- AD BANNER -->
+    <div class="ad-banner">
+      <p>[ Google AdSense — 728×90 ] <!-- Replace with AdSense script --></p>
+    </div>
+
+    <!-- AMORTIZATION TABLE -->
+    <div class="table-section card mt-6" id="amort-section" style="display:none;animation-delay:0.1s;">
+      <div class="flex-between mb-4" style="flex-wrap:wrap;gap:0.5rem;">
+        <h2 class="table-section-title">Amortization Schedule</h2>
+        <button class="btn btn-secondary" onclick="toggleAmortizationTable()" id="amort-toggle-btn" style="font-size:0.82rem;">Show All Months</button>
+      </div>
+      <div class="table-wrap">
+        <table id="amort-table">
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th>Opening Balance</th>
+              <th>EMI</th>
+              <th>Principal Paid</th>
+              <th>Interest Paid</th>
+              <th>Closing Balance</th>
+            </tr>
+          </thead>
+          <tbody id="amort-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <h2 class="faq-title">Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          How is monthly loan payment calculated?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Monthly payment is calculated using the reducing balance EMI formula: EMI = P × r × (1+r)^N ÷ ((1+r)^N − 1), where P is the principal, r is the monthly interest rate (annual rate ÷ 12 ÷ 100), and N is the number of monthly installments. This ensures each payment covers both interest and a portion of the principal.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          How can I reduce my loan EMI?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          You can reduce EMI by: increasing loan tenure (spreads payments over more months), negotiating a lower interest rate, making a larger down payment to reduce principal, or refinancing when rates drop. Note that longer tenure means more total interest paid overall.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          Flat rate vs reducing balance interest — what's the difference?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Flat rate interest is calculated on the original principal throughout the tenure — making the effective rate much higher. Reducing balance interest is calculated only on outstanding principal each month. This calculator uses the reducing balance method, the standard used by most banks in Pakistan. Always confirm which method your bank uses.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          Is it better to pay more down payment or shorter tenure?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Both reduce total interest. A larger down payment reduces the principal immediately; a shorter tenure increases EMI but significantly reduces total interest. Best strategy depends on cash flow — if you have liquidity, a larger down payment is usually better. If you prefer lower monthly burden, extend tenure but try to make prepayments when possible.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          How does prepayment affect my loan?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Prepayment reduces outstanding principal faster, which reduces the interest charged in subsequent months. You can either reduce tenure (pay off sooner) or reduce EMI. Most banks in Pakistan allow partial prepayment, though some charge a penalty. Always check your loan agreement before making extra payments.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="logo">💰 FinanceKit <span>Pro</span></div>
+      <nav class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="emi.html">EMI</a>
+        <a href="currency.html">Currency</a>
+        <a href="calculator.html">Calculator</a>
+      </nav>
+      <p class="footer-copy">© 2025 FinanceKit Pro — Free Financial Tools for Everyone</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="app.js"></script>
+  <script src="loan.js"></script>
+</body>
+</html>

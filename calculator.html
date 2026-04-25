@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online scientific calculator with history, square root, square, inverse functions and full keyboard support. No download required.">
+  <title>Scientific Calculator Online — Free | FinanceKit Pro</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+  <link rel="canonical" href="https://financekitpro.com/calculator.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <meta property="og:title" content="Scientific Calculator — FinanceKit Pro">
+  <meta property="og:description" content="Free online scientific calculator with history and keyboard support.">
+  <meta property="og:type" content="website">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">💰 FinanceKit <span>Pro</span></a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="emi.html">EMI Calculator</a>
+        <a href="loan.html">Loan Calculator</a>
+        <a href="currency.html">Currency</a>
+        <a href="calculator.html" class="active">Calculator</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <button class="theme-toggle" aria-label="Toggle dark mode"><span class="toggle-knob">☀</span></button>
+        <button class="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mobile-nav">
+    <a href="index.html">🏠 Home</a>
+    <a href="emi.html">📊 EMI Calculator</a>
+    <a href="loan.html">🏦 Loan Calculator</a>
+    <a href="currency.html">💱 Currency Converter</a>
+    <a href="calculator.html">🔢 Calculator</a>
+  </nav>
+
+  <main>
+    <h1 class="page-title">🔢 Scientific Calculator</h1>
+    <p class="page-subtitle">Full-featured calculator with history and keyboard support</p>
+
+    <div class="calc-layout">
+      <!-- CALCULATOR CARD -->
+      <div class="card" style="animation-delay:0.05s;">
+        <div class="calc-display" id="calc-display">
+          <div class="calc-expr" id="calc-expr"></div>
+          <div class="calc-result" id="calc-result">0</div>
+        </div>
+
+        <div class="calc-buttons" id="calc-buttons">
+          <button class="calc-btn clear"    onclick="clearExpression()">C</button>
+          <button class="calc-btn special"  onclick="toggleSign()">±</button>
+          <button class="calc-btn special"  onclick="appendToExpression('%')">%</button>
+          <button class="calc-btn operator" onclick="appendToExpression('/')">÷</button>
+
+          <button class="calc-btn" onclick="appendToExpression('7')">7</button>
+          <button class="calc-btn" onclick="appendToExpression('8')">8</button>
+          <button class="calc-btn" onclick="appendToExpression('9')">9</button>
+          <button class="calc-btn operator" onclick="appendToExpression('*')">×</button>
+
+          <button class="calc-btn" onclick="appendToExpression('4')">4</button>
+          <button class="calc-btn" onclick="appendToExpression('5')">5</button>
+          <button class="calc-btn" onclick="appendToExpression('6')">6</button>
+          <button class="calc-btn operator" onclick="appendToExpression('-')">−</button>
+
+          <button class="calc-btn" onclick="appendToExpression('1')">1</button>
+          <button class="calc-btn" onclick="appendToExpression('2')">2</button>
+          <button class="calc-btn" onclick="appendToExpression('3')">3</button>
+          <button class="calc-btn operator" onclick="appendToExpression('+')">+</button>
+
+          <button class="calc-btn zero"   onclick="appendToExpression('0')">0</button>
+          <button class="calc-btn"        onclick="appendToExpression('.')">.</button>
+          <button class="calc-btn equals" onclick="calculate()">=</button>
+
+          <button class="calc-btn special" onclick="squareRoot()">√</button>
+          <button class="calc-btn special" onclick="square()">x²</button>
+          <button class="calc-btn special" onclick="inverse()">1/x</button>
+          <button class="calc-btn special" onclick="backspace()">⌫</button>
+        </div>
+      </div>
+
+      <!-- HISTORY PANEL -->
+      <div class="card" style="animation-delay:0.10s;">
+        <div class="flex-between mb-4">
+          <h2 class="card-title" style="margin-bottom:0;">History</h2>
+          <button class="btn btn-secondary" style="padding:0.4rem 0.85rem;font-size:0.8rem;" onclick="clearHistory()">Clear</button>
+        </div>
+        <div class="history-panel" id="history-panel">
+          <p style="color:var(--text-muted);font-size:0.85rem;padding:0.75rem 0;">No calculations yet. Start typing!</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="logo">💰 FinanceKit <span>Pro</span></div>
+      <nav class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="emi.html">EMI</a>
+        <a href="loan.html">Loan</a>
+        <a href="currency.html">Currency</a>
+      </nav>
+      <p class="footer-copy">© 2025 FinanceKit Pro — Free Financial Tools for Everyone</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="calculator.js"></script>
+</body>
+</html>
