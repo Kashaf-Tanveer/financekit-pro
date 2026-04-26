@@ -67,35 +67,35 @@ function populateDropdowns() {
   const toEl   = document.getElementById('toCurrency');
   
   if (!fromEl || !toEl) {
-    console.error("Critical Error: Dropdown elements not found in HTML.");
+    console.error("Currency dropdown elements not found!");
     return;
   }
 
-  // Pehle dropdown ko bilkul khali karo
-  fromEl.innerHTML = '';
-  toEl.innerHTML   = '';
+  // Clear existing options to avoid duplicates on re-init
+  fromEl.options.length = 0;
+  toEl.options.length = 0;
 
-  // Naye options add karo
   ALL_CURRENCIES.forEach(([code, name, flag]) => {
     const label = `${flag} ${code} — ${name}`;
     
-    // Create new elements manually for better reliability
+    // Create Option for 'From'
     const optFrom = document.createElement('option');
     optFrom.value = code;
     optFrom.textContent = label;
     fromEl.appendChild(optFrom);
 
+    // Create Option for 'To'
     const optTo = document.createElement('option');
     optTo.value = code;
     optTo.textContent = label;
     toEl.appendChild(optTo);
   });
 
-  // Default values set karo
-  fromEl.value = 'USD';
-  toEl.value   = 'PKR';
+  // Set default values if not already set
+  if (!fromEl.value) fromEl.value = 'USD';
+  if (!toEl.value) toEl.value = 'PKR';
 
-  // Timezone detection
+  // Auto-detect from timezone for destination currency
   try {
     const tz  = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const map = {
@@ -107,7 +107,7 @@ function populateDropdowns() {
     };
     if (map[tz]) toEl.value = map[tz];
   } catch(e) {
-    console.warn("Timezone mapping skipped.");
+    console.warn("Timezone detection failed:", e);
   }
 }
 
@@ -121,7 +121,6 @@ const FRANK_SUPPORTED = new Set([
 ]);
 
 async function fetchRates(base) {
-  // Return from cache if fresh
   if (ratesCache[base] && (Date.now() - ratesCache[base].ts) < CACHE_MS) {
     return ratesCache[base].rates;
   }
@@ -133,7 +132,7 @@ async function fetchRates(base) {
 
     if (FRANK_SUPPORTED.has(base)) {
       const res  = await fetch(`https://api.frankfurter.app/latest?from=${base}`);
-      if (!res.ok) throw new Error('API Error ' + res.status);
+      if (!res.ok) throw new Error('API ' + res.status);
       const data = await res.json();
       rates = { ...data.rates, [base]: 1 };
 
@@ -148,13 +147,14 @@ async function fetchRates(base) {
 
     } else {
       const res  = await fetch(`https://api.frankfurter.app/latest?from=USD`);
-      if (!res.ok) throw new Error('API Error ' + res.status);
+      if (!res.ok) throw new Error('API ' + res.status);
       const data = await res.json();
       const usdRates = { ...data.rates, USD: 1 };
 
       Object.keys(USD_FALLBACK).forEach(c => { if (!usdRates[c]) usdRates[c] = USD_FALLBACK[c]; });
 
       const usdToBase = USD_FALLBACK[base] || usdRates[base] || 1;
+
       Object.keys(usdRates).forEach(code => {
         rates[code] = usdRates[code] / usdToBase;
       });
@@ -167,7 +167,7 @@ async function fetchRates(base) {
     return rates;
 
   } catch(err) {
-    console.error('API Fetch failed, using fallback mode:', err.message);
+    console.warn('Live rate fetch failed, using fallback:', err.message);
     showLastUpdated(false);
     showLoader(false);
 
@@ -187,14 +187,12 @@ async function doConvert() {
   const toEl     = document.getElementById('toCurrency');
   const amountEl = document.getElementById('amount');
 
-  if (!fromEl || !toEl || !amountEl) return;
-
-  const from   = fromEl.value || 'USD';
-  const to     = toEl.value   || 'PKR';
-  const amount = parseFloat(amountEl.value) || 0;
+  const from   = fromEl?.value || 'USD';
+  const to     = toEl?.value   || 'PKR';
+  const amount = parseFloat(amountEl?.value) || 0;
 
   if (amount <= 0) {
-    setResult('—', 'Enter an amount to see the conversion');
+    setResult('—', 'Please enter a valid amount');
     return;
   }
 
@@ -202,7 +200,7 @@ async function doConvert() {
   const rate  = rates[to];
 
   if (!rate) {
-    setResult('N/A', `Exchange rate for ${to} not found.`);
+    setResult('N/A', `Rate for ${to} not available`);
     return;
   }
 
@@ -214,7 +212,8 @@ async function doConvert() {
 
   const fromEntry = ALL_CURRENCIES.find(c => c[0] === from);
   const toEntry   = ALL_CURRENCIES.find(c => c[0] === to);
-  const toFlag    = toEntry ? toEntry[2] : '';
+  const toFlag    = toEntry   ? toEntry[2]   : '';
+  const toName    = toEntry   ? toEntry[1]   : to;
 
   setResult(
     `${toFlag} ${fmtResult} ${to}`,
@@ -260,13 +259,13 @@ function renderRateTable(base, rates, amount) {
   const tbody = document.getElementById('rate-tbody');
   if (!tbody) return;
 
-  const currentAmt = amount || 1;
+  const currentAmount = amount || 1;
   const targets = ALL_CURRENCIES.filter(([c]) => c !== base).slice(0, 20);
 
   tbody.innerHTML = targets.map(([code, name, flag]) => {
     const rate = rates[code];
     if (!rate) return '';
-    const converted = (currentAmt * rate).toLocaleString('en-US', {
+    const converted = (currentAmount * rate).toLocaleString('en-US', {
       minimumFractionDigits: 2,
       maximumFractionDigits: rate > 10 ? 2 : 4
     });
@@ -283,7 +282,10 @@ function renderRateTable(base, rates, amount) {
 
 function setConversionTo(code) {
   const toEl = document.getElementById('toCurrency');
-  if (toEl) { toEl.value = code; doConvert(); }
+  if (toEl) { 
+    toEl.value = code; 
+    doConvert(); 
+  }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -292,8 +294,10 @@ function setConversionTo(code) {
    ========================================================= */
 function quickSelect(code) {
   const fromEl = document.getElementById('fromCurrency');
-  if (fromEl) fromEl.value = code;
-  doConvert();
+  if (fromEl) {
+    fromEl.value = code;
+    doConvert();
+  }
 }
 
 function swapCurrencies() {
@@ -307,13 +311,13 @@ function swapCurrencies() {
 }
 
 /* =========================================================
-   INIT — Sequenced for no errors
+   INIT — Ensure everything runs on load
    ========================================================= */
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Pehle dropdown bharna hai
+  // Step 1: Fill dropdowns
   populateDropdowns();
 
-  // 2. Phir listeners lagane hain
+  // Step 2: Wire up listeners first
   const fromEl   = document.getElementById('fromCurrency');
   const toEl     = document.getElementById('toCurrency');
   const amountEl = document.getElementById('amount');
@@ -322,10 +326,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (toEl)     toEl.addEventListener('change',    doConvert);
   if (amountEl) amountEl.addEventListener('input', doConvert);
 
-  // 3. Phir conversion run karni hai (taake dropdown ready ho)
+  // Step 3: Run initial conversion
   doConvert();
 
-  // 4. Header selector listener
+  // Step 4: Listen for global events
   document.addEventListener('fkp:currencyChanged', (e) => {
     if (toEl && e.detail?.code) {
       toEl.value = e.detail.code;
