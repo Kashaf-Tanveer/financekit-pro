@@ -3,48 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Free online loan calculator. Calculate monthly payment, total interest, and see full amortization schedule. Includes pie chart visualization. No sign-up needed.">
-  <title>Loan Calculator — Monthly Payment & Amortization Table | FinanceKit Pro</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+
+  <title>Loan Calculator Pakistan 2026 — Monthly Payment & Amortization Table | FinanceKit Pro</title>
+  <meta name="description" content="Free loan calculator Pakistan 2026. Calculate monthly payment, total interest payable, and view full amortization schedule. Pie chart included. No sign-up needed.">
+  <meta name="keywords" content="loan calculator Pakistan, monthly payment calculator, amortization table, interest calculator, home loan calculator, car loan calculator 2026">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+
   <link rel="canonical" href="https://financekitpro.com/loan.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+
+  <meta property="og:title" content="Loan Calculator Pakistan 2026 — FinanceKit Pro">
+  <meta property="og:description" content="Free loan calculator with amortization table and pie chart. Calculate monthly payment and total interest for any loan.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://financekitpro.com/loan.html">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <meta property="og:title" content="Loan Calculator — FinanceKit Pro">
-  <meta property="og:description" content="Calculate monthly loan payments, total interest and full amortization schedule for free.">
-  <meta property="og:type" content="website">
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Loan Calculator",
-    "description": "Free online loan calculator. Calculate monthly payment, total interest, and amortization schedule.",
+    "name": "Loan Calculator Pakistan",
+    "description": "Free online loan calculator. Calculate monthly payment, total interest, and full amortization schedule with pie chart.",
     "applicationCategory": "FinanceApplication",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PKR" },
     "url": "https://financekitpro.com/loan.html"
   }
   </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://financekitpro.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Loan Calculator", "item": "https://financekitpro.com/loan.html" }
+    ]
+  }
+  </script>
 </head>
 <body>
 
-  <header class="site-header">
+  <header class="site-header" role="banner">
     <div class="header-inner">
       <a href="index.html" class="logo">💰 FinanceKit <span>Pro</span></a>
-      <nav class="nav-links">
+      <nav class="nav-links" aria-label="Main navigation">
         <a href="index.html">Home</a>
         <a href="emi.html">EMI Calculator</a>
         <a href="loan.html" class="active">Loan Calculator</a>
         <a href="currency.html">Currency</a>
         <a href="calculator.html">Calculator</a>
       </nav>
-      <div style="display:flex;align-items:center;gap:0.75rem;">
+      <div style="display:flex;align-items:center;gap:0.6rem;">
+        <select id="global-currency-select" aria-label="Display currency"
+          style="font-family:var(--font-mono);font-size:0.78rem;font-weight:700;padding:0.35rem 0.6rem;border-radius:8px;border:1.5px solid var(--border);background:var(--bg);color:var(--text-primary);cursor:pointer;max-width:100px;">
+        </select>
         <button class="theme-toggle" aria-label="Toggle dark mode"><span class="toggle-knob">☀</span></button>
         <button class="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
       </div>
     </div>
   </header>
 
-  <nav class="mobile-nav">
+  <nav class="mobile-nav" aria-label="Mobile navigation">
     <a href="index.html">🏠 Home</a>
     <a href="emi.html">📊 EMI Calculator</a>
     <a href="loan.html">🏦 Loan Calculator</a>
@@ -52,9 +74,16 @@
     <a href="calculator.html">🔢 Calculator</a>
   </nav>
 
-  <main>
-    <h1 class="page-title">🏦 Loan Calculator</h1>
-    <p class="page-subtitle">Calculate your monthly payment, total interest, and view full repayment schedule</p>
+  <main id="main-content">
+
+    <nav aria-label="Breadcrumb" style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1rem;">
+      <a href="index.html" style="color:var(--text-muted);">Home</a>
+      <span style="margin:0 0.4rem;">›</span>
+      <span style="color:var(--text-primary);font-weight:600;">Loan Calculator</span>
+    </nav>
+
+    <h1 class="page-title">🏦 Loan Calculator Pakistan</h1>
+    <p class="page-subtitle">Calculate monthly payment, total interest payable, and view full amortization repayment schedule</p>
 
     <div class="two-col">
 
@@ -73,37 +102,37 @@
         <div class="form-group">
           <label for="loan-rate-input">Annual Interest Rate (%)</label>
           <div class="slider-row">
-            <input type="range"  id="loan-rate-slider" min="1" max="36" step="0.1" value="12">
-            <input type="number" id="loan-rate-input"  min="0" max="100" step="0.1" value="12">
+            <input type="range" id="loan-rate-slider" min="1" max="36" step="0.1" value="12">
+            <input type="number" id="loan-rate-input" min="0" max="100" step="0.1" value="12">
           </div>
         </div>
 
         <div class="form-group">
           <label>Loan Tenure</label>
-          <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;margin-bottom:0.5rem;">
-            <div class="toggle-group">
+          <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;margin-bottom:0.6rem;">
+            <div class="toggle-group" role="group" aria-label="Tenure unit">
               <button id="tenure-months-btn" class="active" onclick="setTenureMode('months')">Months</button>
               <button id="tenure-years-btn" onclick="setTenureMode('years')">Years</button>
             </div>
           </div>
           <div class="slider-row">
-            <input type="range"  id="loan-tenure-slider" min="1" max="360" step="1" value="60">
-            <input type="number" id="loan-tenure-input"  min="1" max="360" value="60">
+            <input type="range" id="loan-tenure-slider" min="1" max="360" step="1" value="60">
+            <input type="number" id="loan-tenure-input" min="1" max="360" value="60">
           </div>
           <p id="tenure-display" style="font-size:0.78rem;color:var(--text-muted);margin-top:0.4rem;font-family:var(--font-mono);">= 5 Years</p>
         </div>
 
         <button class="btn btn-primary w-full" onclick="calculateLoan()" style="margin-top:0.5rem;">
-          Calculate Loan →
+          Calculate →
         </button>
       </div>
 
       <!-- RIGHT: RESULTS -->
       <div style="display:flex;flex-direction:column;gap:1.25rem;">
 
-        <div class="result-box" id="loan-main-result" style="animation-delay:0.10s;">
+        <div class="result-box" style="animation-delay:0.10s;">
           <div class="result-label">Monthly Payment</div>
-          <div class="result-number" id="loan-emi-display">₨ 0</div>
+          <div class="result-number" id="loan-emi-display" aria-live="polite">₨ 0</div>
           <div class="result-sub" id="loan-emi-sub">Enter loan details to calculate</div>
         </div>
 
@@ -129,20 +158,20 @@
         <div class="card" style="animation-delay:0.20s;">
           <h3 class="card-title">Principal vs Interest</h3>
           <div class="chart-wrap">
-            <canvas id="loan-pie-chart"></canvas>
+            <canvas id="loan-pie-chart" aria-label="Principal vs Interest pie chart"></canvas>
           </div>
         </div>
 
         <!-- MONETIZATION: Replace href="#" with your affiliate link -->
-        <a href="#" class="btn-affiliate" id="affiliate-loan-btn" target="_blank" rel="noopener">
+        <a href="#" class="btn-affiliate" id="affiliate-loan-btn" target="_blank" rel="noopener sponsored">
           🏦 Apply for Loan — Get Best Rates →
         </a>
       </div>
     </div>
 
     <!-- AD BANNER -->
-    <div class="ad-banner">
-      <p>[ Google AdSense — 728×90 ] <!-- Replace with AdSense script --></p>
+    <div class="ad-banner" aria-label="Advertisement">
+      <p>[ Google AdSense — 728×90 ]<!-- Replace with AdSense script --></p>
     </div>
 
     <!-- AMORTIZATION TABLE -->
@@ -152,15 +181,15 @@
         <button class="btn btn-secondary" onclick="toggleAmortizationTable()" id="amort-toggle-btn" style="font-size:0.82rem;">Show All Months</button>
       </div>
       <div class="table-wrap">
-        <table id="amort-table">
+        <table id="amort-table" aria-label="Loan amortization schedule">
           <thead>
             <tr>
-              <th>Month</th>
-              <th>Opening Balance</th>
-              <th>EMI</th>
-              <th>Principal Paid</th>
-              <th>Interest Paid</th>
-              <th>Closing Balance</th>
+              <th scope="col">Month</th>
+              <th scope="col">Opening Balance</th>
+              <th scope="col">EMI</th>
+              <th scope="col">Principal Paid</th>
+              <th scope="col">Interest Paid</th>
+              <th scope="col">Closing Balance</th>
             </tr>
           </thead>
           <tbody id="amort-tbody"></tbody>
@@ -168,73 +197,109 @@
       </div>
     </div>
 
+    <!-- SEO CONTENT -->
+    <section style="margin-top:2rem;" aria-labelledby="loan-guide-heading">
+      <div class="card" style="padding:2rem;">
+        <h2 id="loan-guide-heading" style="font-size:1.3rem;font-weight:800;letter-spacing:-0.03em;margin-bottom:1rem;">How to Use This Loan Calculator — A Complete Guide</h2>
+
+        <p style="color:var(--text-muted);font-size:0.9rem;line-height:1.8;margin-bottom:1rem;">
+          This free <strong>loan calculator for Pakistan</strong> helps you plan any type of loan — home loan, car loan, business loan, or personal loan. Simply enter your loan amount, the annual interest rate offered by your bank, and the repayment tenure, and get instant results including your monthly EMI, total interest cost, and a full month-by-month amortization schedule.
+        </p>
+
+        <h3 style="font-size:1rem;font-weight:700;margin:1rem 0 0.5rem;">Understanding Your Amortization Table</h3>
+        <p style="color:var(--text-muted);font-size:0.9rem;line-height:1.8;margin-bottom:1rem;">
+          The amortization table shows exactly how each EMI payment is split between principal and interest. In the early months of your loan, a larger portion goes toward interest. As the loan matures, more of each payment reduces the principal. This is why making extra payments in the early months has the most impact — it reduces the principal faster and saves significant interest over time.
+        </p>
+
+        <h3 style="font-size:1rem;font-weight:700;margin:1rem 0 0.5rem;">Loan Calculator Tips for Pakistan</h3>
+        <ul style="color:var(--text-muted);font-size:0.9rem;line-height:1.8;padding-left:1.2rem;">
+          <li style="margin-bottom:0.5rem;">Use the <strong>Months/Years toggle</strong> to switch between short-term and long-term loans</li>
+          <li style="margin-bottom:0.5rem;">The <strong>pie chart</strong> instantly shows your principal vs interest ratio at a glance</li>
+          <li style="margin-bottom:0.5rem;">The <strong>amortization table</strong> shows your exact balance after every payment</li>
+          <li style="margin-bottom:0.5rem;">Try different rates to compare loan offers from different banks</li>
+          <li>For more features (extra payment calculator, year-wise charts), use our <a href="emi.html" style="color:var(--accent);">EMI Calculator →</a></li>
+        </ul>
+      </div>
+    </section>
+
     <!-- FAQ -->
-    <section class="faq-section">
-      <h2 class="faq-title">Frequently Asked Questions</h2>
+    <section class="faq-section" aria-labelledby="loan-faq-heading">
+      <h2 id="loan-faq-heading" class="faq-title">Loan Calculator — Frequently Asked Questions</h2>
 
       <div class="faq-item">
-        <div class="faq-question" onclick="toggleFAQ(this)">
+        <div class="faq-question" onclick="toggleFAQ(this)" role="button" aria-expanded="false">
           How is monthly loan payment calculated?
-          <span class="faq-icon">+</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
         </div>
         <div class="faq-answer">
-          Monthly payment is calculated using the reducing balance EMI formula: EMI = P × r × (1+r)^N ÷ ((1+r)^N − 1), where P is the principal, r is the monthly interest rate (annual rate ÷ 12 ÷ 100), and N is the number of monthly installments. This ensures each payment covers both interest and a portion of the principal.
+          Monthly payment uses the reducing balance EMI formula: EMI = P × r × (1+r)^N ÷ ((1+r)^N − 1), where P is the principal, r is the monthly interest rate (annual rate ÷ 12 ÷ 100), and N is the number of monthly installments. This ensures each payment covers both interest for that month and a portion of the principal.
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-question" onclick="toggleFAQ(this)">
+        <div class="faq-question" onclick="toggleFAQ(this)" role="button" aria-expanded="false">
           How can I reduce my loan EMI?
-          <span class="faq-icon">+</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
         </div>
         <div class="faq-answer">
-          You can reduce EMI by: increasing loan tenure (spreads payments over more months), negotiating a lower interest rate, making a larger down payment to reduce principal, or refinancing when rates drop. Note that longer tenure means more total interest paid overall.
+          You can reduce EMI by: (1) Increasing loan tenure — more months means lower per-payment amount. (2) Negotiating a lower interest rate or switching to a bank with better rates. (3) Making a larger down payment to reduce the principal. (4) Refinancing when market interest rates drop. Note that longer tenure means significantly more total interest paid — use this calculator to see the exact difference.
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-question" onclick="toggleFAQ(this)">
-          Flat rate vs reducing balance interest — what's the difference?
-          <span class="faq-icon">+</span>
+        <div class="faq-question" onclick="toggleFAQ(this)" role="button" aria-expanded="false">
+          Flat rate vs reducing balance — what's the difference?
+          <span class="faq-icon" aria-hidden="true">+</span>
         </div>
         <div class="faq-answer">
-          Flat rate interest is calculated on the original principal throughout the tenure — making the effective rate much higher. Reducing balance interest is calculated only on outstanding principal each month. This calculator uses the reducing balance method, the standard used by most banks in Pakistan. Always confirm which method your bank uses.
+          Flat rate interest is calculated on the original principal throughout the tenure — making the effective rate much higher than stated. Reducing balance (diminishing balance) interest is calculated only on the outstanding balance each month. This calculator uses the reducing balance method, which is the standard used by all reputable banks in Pakistan. If a lender quotes a "flat rate," the actual effective rate is roughly double — always ask for the reducing balance equivalent.
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-question" onclick="toggleFAQ(this)">
-          Is it better to pay more down payment or shorter tenure?
-          <span class="faq-icon">+</span>
+        <div class="faq-question" onclick="toggleFAQ(this)" role="button" aria-expanded="false">
+          Is it better to pay more down payment or choose shorter tenure?
+          <span class="faq-icon" aria-hidden="true">+</span>
         </div>
         <div class="faq-answer">
-          Both reduce total interest. A larger down payment reduces the principal immediately; a shorter tenure increases EMI but significantly reduces total interest. Best strategy depends on cash flow — if you have liquidity, a larger down payment is usually better. If you prefer lower monthly burden, extend tenure but try to make prepayments when possible.
+          Both strategies reduce total interest, but they work differently: A larger down payment reduces the principal immediately — good if you have the cash. A shorter tenure keeps the same principal but forces faster repayment — good if you have consistent high income. If you can choose only one: a larger down payment is usually better as it reduces the interest-bearing base from day one. Combine both for maximum savings.
         </div>
       </div>
 
       <div class="faq-item">
-        <div class="faq-question" onclick="toggleFAQ(this)">
+        <div class="faq-question" onclick="toggleFAQ(this)" role="button" aria-expanded="false">
           How does prepayment affect my loan?
-          <span class="faq-icon">+</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
         </div>
         <div class="faq-answer">
-          Prepayment reduces outstanding principal faster, which reduces the interest charged in subsequent months. You can either reduce tenure (pay off sooner) or reduce EMI. Most banks in Pakistan allow partial prepayment, though some charge a penalty. Always check your loan agreement before making extra payments.
+          Prepayment reduces the outstanding principal, which reduces future interest charges. You can either shorten the tenure (pay off faster) or reduce the EMI amount. Most Pakistani banks allow partial prepayment, though some charge a penalty of 1-3% on the prepaid amount. Always check your loan agreement. For a detailed prepayment analysis, use our <a href="emi.html" style="color:var(--accent);">EMI Calculator's extra payment feature →</a>
         </div>
+      </div>
+    </section>
+
+    <!-- INTERNAL LINKS -->
+    <section style="margin-top:2rem;padding:1.25rem;background:var(--bg);border-radius:var(--radius-lg);border:1px solid var(--border);" aria-label="Related tools">
+      <h2 style="font-size:0.95rem;font-weight:700;margin-bottom:0.75rem;">Related Financial Tools</h2>
+      <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+        <a href="emi.html" class="btn btn-secondary" style="font-size:0.85rem;">📊 EMI Calculator</a>
+        <a href="currency.html" class="btn btn-secondary" style="font-size:0.85rem;">💱 Currency Converter</a>
+        <a href="calculator.html" class="btn btn-secondary" style="font-size:0.85rem;">🔢 Scientific Calculator</a>
       </div>
     </section>
 
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer" role="contentinfo">
     <div class="footer-inner">
       <div class="logo">💰 FinanceKit <span>Pro</span></div>
-      <nav class="footer-links">
+      <nav class="footer-links" aria-label="Footer navigation">
         <a href="index.html">Home</a>
-        <a href="emi.html">EMI</a>
+        <a href="emi.html">EMI Calculator</a>
         <a href="currency.html">Currency</a>
         <a href="calculator.html">Calculator</a>
+        <a href="sitemap.xml">Sitemap</a>
       </nav>
-      <p class="footer-copy">© 2025 FinanceKit Pro — Free Financial Tools for Everyone</p>
+      <p class="footer-copy">© 2026 FinanceKit Pro — Free Loan Calculator Pakistan | All Rights Reserved</p>
     </div>
   </footer>
 
