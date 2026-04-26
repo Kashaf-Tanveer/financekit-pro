@@ -1,28 +1,88 @@
+# Update the app.js to add global currency selector support
+cat > /home/claude/financekit/app.js << 'APPJS'
 // File: app.js — Shared utility functions for FinanceKit Pro
 // Handles: theme toggle, number formatting, counter animation, toast notifications,
-// mobile nav, and active nav link highlighting.
+// mobile nav, active nav, and GLOBAL CURRENCY SELECTOR (site-wide currency display)
 
 'use strict';
 
 /* =========================================================
-   THEME TOGGLE
-   Reads preference from localStorage and applies data-theme
+   GLOBAL CURRENCY CONFIG
+   User selects preferred currency on homepage — all pages reflect it
    ========================================================= */
 
-/**
- * initTheme — Run on page load to apply saved theme preference.
- * Reads 'fkp-theme' from localStorage; defaults to 'light'.
- */
+/** Supported display currencies with symbols and conversion hints */
+const DISPLAY_CURRENCIES = {
+  PKR: { symbol: '₨', name: 'Pakistani Rupee', flag: '🇵🇰' },
+  USD: { symbol: '$',  name: 'US Dollar',        flag: '🇺🇸' },
+  EUR: { symbol: '€',  name: 'Euro',             flag: '🇪🇺' },
+  GBP: { symbol: '£',  name: 'British Pound',    flag: '🇬🇧' },
+  AED: { symbol: 'د.إ', name: 'UAE Dirham',       flag: '🇦🇪' },
+  SAR: { symbol: '﷼',  name: 'Saudi Riyal',      flag: '🇸🇦' },
+  CAD: { symbol: 'C$', name: 'Canadian Dollar',  flag: '🇨🇦' },
+  AUD: { symbol: 'A$', name: 'Australian Dollar',flag: '🇦🇺' },
+  INR: { symbol: '₹',  name: 'Indian Rupee',     flag: '🇮🇳' },
+  JPY: { symbol: '¥',  name: 'Japanese Yen',     flag: '🇯🇵' },
+};
+
+/** Get currently selected display currency (default PKR) */
+function getDisplayCurrency() {
+  return localStorage.getItem('fkp-display-currency') || 'PKR';
+}
+
+/** Get symbol for currently selected currency */
+function getCurrencySymbol() {
+  const code = getDisplayCurrency();
+  return DISPLAY_CURRENCIES[code]?.symbol || '₨';
+}
+
+/** Set display currency and refresh page displays */
+function setDisplayCurrency(code) {
+  if (!DISPLAY_CURRENCIES[code]) return;
+  localStorage.setItem('fkp-display-currency', code);
+  localStorage.setItem('fkp-display-rate-base', code);
+  updateCurrencySelectorUI(code);
+  // Trigger recalculation on pages that need it
+  if (typeof calculateEMI === 'function')  calculateEMI();
+  if (typeof calculateLoan === 'function') calculateLoan();
+  if (typeof showToast === 'function') {
+    const cur = DISPLAY_CURRENCIES[code];
+    showToast(`${cur.flag} Displaying in ${cur.name} (${code})`, 'info');
+  }
+}
+
+/** Render the currency selector dropdown in header */
+function initCurrencySelector() {
+  const sel = document.getElementById('global-currency-select');
+  if (!sel) return;
+  const current = getDisplayCurrency();
+  Object.entries(DISPLAY_CURRENCIES).forEach(([code, info]) => {
+    const opt = document.createElement('option');
+    opt.value = code;
+    opt.textContent = `${info.flag} ${code}`;
+    if (code === current) opt.selected = true;
+    sel.appendChild(opt);
+  });
+  sel.addEventListener('change', () => setDisplayCurrency(sel.value));
+}
+
+/** Update all currency selector UIs to show current selection */
+function updateCurrencySelectorUI(code) {
+  document.querySelectorAll('#global-currency-select').forEach(el => {
+    el.value = code;
+  });
+}
+
+/* =========================================================
+   THEME TOGGLE
+   ========================================================= */
+
 function initTheme() {
   const saved = localStorage.getItem('fkp-theme') || 'light';
   document.documentElement.setAttribute('data-theme', saved);
   updateToggleIcon(saved);
 }
 
-/**
- * toggleTheme — Flips between light and dark mode.
- * Saves new preference to localStorage.
- */
 function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme') || 'light';
   const next = current === 'light' ? 'dark' : 'light';
@@ -31,10 +91,6 @@ function toggleTheme() {
   updateToggleIcon(next);
 }
 
-/**
- * updateToggleIcon — Updates the moon/sun icon inside the toggle knob.
- * @param {string} theme - 'light' or 'dark'
- */
 function updateToggleIcon(theme) {
   const knob = document.querySelector('.toggle-knob');
   if (knob) knob.textContent = theme === 'dark' ? '☾' : '☀';
@@ -45,17 +101,13 @@ function updateToggleIcon(theme) {
    ========================================================= */
 
 /**
- * formatPKR — Formats a number using Pakistani/Indian comma style.
- * Example: 150000 → "1,50,000"
- * @param {number} number - The number to format
- * @returns {string} Formatted string
+ * formatPKR — Pakistani/Indian comma format: 1,50,000
  */
 function formatPKR(number) {
   if (isNaN(number) || number === null) return '0';
   const num = Math.round(number);
   const str = num.toString();
   if (str.length <= 3) return str;
-  // Last 3 digits, then groups of 2
   const lastThree = str.slice(-3);
   const rest = str.slice(0, -3);
   const formatted = rest.replace(/\B(?=(\d{2})+(?!\d))/g, ',');
@@ -63,12 +115,19 @@ function formatPKR(number) {
 }
 
 /**
- * formatCurrency — Formats a number with a currency symbol.
- * @param {number} number - The amount
- * @param {string} symbol - Currency symbol e.g. '₨', '$', '€'
- * @param {number} decimals - Decimal places (default 2)
- * @returns {string} Formatted currency string
+ * formatNum — Format with current display currency symbol
  */
+function formatNum(number) {
+  const code = getDisplayCurrency();
+  const sym = getCurrencySymbol();
+  if (isNaN(number)) return sym + '0';
+  // PKR and INR use desi format, others use international
+  if (code === 'PKR' || code === 'INR') {
+    return sym + ' ' + formatPKR(Math.round(number));
+  }
+  return sym + ' ' + Math.round(number).toLocaleString('en-US');
+}
+
 function formatCurrency(number, symbol = '₨', decimals = 2) {
   if (isNaN(number)) return symbol + '0.00';
   return symbol + ' ' + number.toLocaleString('en-US', {
@@ -79,33 +138,19 @@ function formatCurrency(number, symbol = '₨', decimals = 2) {
 
 /* =========================================================
    ANIMATED COUNTER
-   Smoothly counts from 0 to target value
    ========================================================= */
 
-/**
- * animateCounter — Animates a DOM element's text from 0 to targetValue.
- * @param {HTMLElement} element - The element to update
- * @param {number} targetValue - Final value to count to
- * @param {number} duration - Animation duration in ms (default 800)
- * @param {string} prefix - Text before number e.g. '₨ '
- * @param {string} suffix - Text after number e.g. '/mo'
- * @param {boolean} usePKR - Use Pakistani comma formatting
- */
 function animateCounter(element, targetValue, duration = 800, prefix = '', suffix = '', usePKR = true) {
   if (!element) return;
   const startTime = performance.now();
-  const startValue = 0;
 
   function step(currentTime) {
     const elapsed = currentTime - startTime;
     const progress = Math.min(elapsed / duration, 1);
-    // Ease out cubic
     const eased = 1 - Math.pow(1 - progress, 3);
-    const current = startValue + (targetValue - startValue) * eased;
-
+    const current = targetValue * eased;
     const formatted = usePKR ? formatPKR(Math.round(current)) : Math.round(current).toLocaleString();
     element.textContent = prefix + formatted + suffix;
-
     if (progress < 1) {
       requestAnimationFrame(step);
     } else {
@@ -113,21 +158,13 @@ function animateCounter(element, targetValue, duration = 800, prefix = '', suffi
       element.textContent = prefix + finalFormatted + suffix;
     }
   }
-
   requestAnimationFrame(step);
 }
 
 /* =========================================================
    TOAST NOTIFICATIONS
-   Shows a bottom-right popup for 3 seconds
    ========================================================= */
 
-/**
- * showToast — Displays a toast notification message.
- * @param {string} message - Text to display
- * @param {string} type - 'success' | 'error' | 'info'
- * @param {number} duration - How long to show in ms (default 3000)
- */
 function showToast(message, type = 'info', duration = 3000) {
   let container = document.getElementById('toast-container');
   if (!container) {
@@ -135,12 +172,10 @@ function showToast(message, type = 'info', duration = 3000) {
     container.id = 'toast-container';
     document.body.appendChild(container);
   }
-
   const toast = document.createElement('div');
   toast.className = `toast ${type}`;
   toast.textContent = message;
   container.appendChild(toast);
-
   setTimeout(() => {
     toast.style.opacity = '0';
     toast.style.transform = 'translateX(110%)';
@@ -150,14 +185,9 @@ function showToast(message, type = 'info', duration = 3000) {
 }
 
 /* =========================================================
-   MOBILE NAV HAMBURGER
-   Toggles mobile nav open/close
+   MOBILE NAV
    ========================================================= */
 
-/**
- * initMobileNav — Attaches click listener to hamburger button.
- * Toggles .open class on both hamburger and mobile-nav elements.
- */
 function initMobileNav() {
   const hamburger = document.querySelector('.hamburger');
   const mobileNav = document.querySelector('.mobile-nav');
@@ -168,7 +198,6 @@ function initMobileNav() {
     mobileNav.classList.toggle('open');
   });
 
-  // Close nav when any link is clicked
   mobileNav.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       hamburger.classList.remove('open');
@@ -176,7 +205,6 @@ function initMobileNav() {
     });
   });
 
-  // Close nav when clicking outside
   document.addEventListener('click', (e) => {
     if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
       hamburger.classList.remove('open');
@@ -186,19 +214,12 @@ function initMobileNav() {
 }
 
 /* =========================================================
-   ACTIVE NAV LINK
-   Highlights the current page link in header nav
+   ACTIVE NAV
    ========================================================= */
 
-/**
- * setActiveNav — Adds .active class to the nav link matching current page.
- * Compares href against window.location.pathname.
- */
 function setActiveNav() {
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-  const allNavLinks = document.querySelectorAll('.nav-links a, .mobile-nav a');
-
-  allNavLinks.forEach(link => {
+  document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(link => {
     const linkPage = link.getAttribute('href');
     if (linkPage === currentPage || (currentPage === '' && linkPage === 'index.html')) {
       link.classList.add('active');
@@ -209,16 +230,16 @@ function setActiveNav() {
 }
 
 /* =========================================================
-   INIT — Run all shared utilities on DOM ready
+   INIT
    ========================================================= */
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initMobileNav();
   setActiveNav();
+  initCurrencySelector();
 
-  // Attach theme toggle button click
   const toggleBtn = document.querySelector('.theme-toggle');
-  if (toggleBtn) {
-    toggleBtn.addEventListener('click', toggleTheme);
-  }
+  if (toggleBtn) toggleBtn.addEventListener('click', toggleTheme);
 });
+APPJS
+echo "app.js updated"
