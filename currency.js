@@ -1,6 +1,6 @@
 // File: currency.js — Currency converter for FinanceKit Pro
 // Uses: frankfurter.app (100% FREE, no API key needed)
-// Fixed: All element IDs match currency.html exactly
+// Fixed: All element IDs match currency.html exactly & Dropdown population fixed
 
 'use strict';
 
@@ -65,23 +65,37 @@ let ratesCache = {};
 function populateDropdowns() {
   const fromEl = document.getElementById('fromCurrency');
   const toEl   = document.getElementById('toCurrency');
-  if (!fromEl || !toEl) return;
+  
+  if (!fromEl || !toEl) {
+    console.error("Currency dropdown elements not found!");
+    return;
+  }
 
-  // Clear existing options
-  fromEl.innerHTML = '';
-  toEl.innerHTML   = '';
+  // Clear existing options to avoid duplicates on re-init
+  fromEl.options.length = 0;
+  toEl.options.length = 0;
 
   ALL_CURRENCIES.forEach(([code, name, flag]) => {
     const label = `${flag} ${code} — ${name}`;
-    fromEl.add(new Option(label, code));
-    toEl.add(new Option(label, code));
+    
+    // Create Option for 'From'
+    const optFrom = document.createElement('option');
+    optFrom.value = code;
+    optFrom.textContent = label;
+    fromEl.appendChild(optFrom);
+
+    // Create Option for 'To'
+    const optTo = document.createElement('option');
+    optTo.value = code;
+    optTo.textContent = label;
+    toEl.appendChild(optTo);
   });
 
-  // Defaults
-  fromEl.value = 'USD';
-  toEl.value   = 'PKR';
+  // Set default values if not already set
+  if (!fromEl.value) fromEl.value = 'USD';
+  if (!toEl.value) toEl.value = 'PKR';
 
-  // Auto-detect from timezone
+  // Auto-detect from timezone for destination currency
   try {
     const tz  = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const map = {
@@ -92,16 +106,14 @@ function populateDropdowns() {
       'America/Toronto':'CAD','Asia/Kuwait':'KWD','Asia/Bahrain':'BHD',
     };
     if (map[tz]) toEl.value = map[tz];
-  } catch(e) {}
+  } catch(e) {
+    console.warn("Timezone detection failed:", e);
+  }
 }
 
 /* =========================================================
    FETCH RATES — frankfurter.app (FREE, no key)
-   For currencies not in frankfurter (PKR, AED etc.),
-   we fetch USD rates and cross-calculate.
    ========================================================= */
-
-// Currencies directly supported by frankfurter.app
 const FRANK_SUPPORTED = new Set([
   'USD','EUR','GBP','JPY','CHF','AUD','CAD','CNY','NZD','SEK','NOK','DKK',
   'HKD','SGD','KRW','INR','MYR','THB','IDR','TRY','MXN','BRL','ZAR','PLN',
@@ -109,7 +121,6 @@ const FRANK_SUPPORTED = new Set([
 ]);
 
 async function fetchRates(base) {
-  // Return from cache if fresh
   if (ratesCache[base] && (Date.now() - ratesCache[base].ts) < CACHE_MS) {
     return ratesCache[base].rates;
   }
@@ -120,13 +131,11 @@ async function fetchRates(base) {
     let rates = {};
 
     if (FRANK_SUPPORTED.has(base)) {
-      // Direct fetch
       const res  = await fetch(`https://api.frankfurter.app/latest?from=${base}`);
       if (!res.ok) throw new Error('API ' + res.status);
       const data = await res.json();
       rates = { ...data.rates, [base]: 1 };
 
-      // Add non-frankfurter currencies via USD cross-rate
       const usdRate = base === 'USD' ? 1 : (rates['USD'] || 1);
       Object.keys(USD_FALLBACK).forEach(code => {
         if (!rates[code]) {
@@ -137,18 +146,15 @@ async function fetchRates(base) {
       });
 
     } else {
-      // Base not in frankfurter — fetch USD, then cross-calculate
       const res  = await fetch(`https://api.frankfurter.app/latest?from=USD`);
       if (!res.ok) throw new Error('API ' + res.status);
       const data = await res.json();
       const usdRates = { ...data.rates, USD: 1 };
 
-      // Add fallback currencies to usdRates
       Object.keys(USD_FALLBACK).forEach(c => { if (!usdRates[c]) usdRates[c] = USD_FALLBACK[c]; });
 
       const usdToBase = USD_FALLBACK[base] || usdRates[base] || 1;
 
-      // Cross-calculate: target = usdRates[target] / usdToBase
       Object.keys(usdRates).forEach(code => {
         rates[code] = usdRates[code] / usdToBase;
       });
@@ -165,7 +171,6 @@ async function fetchRates(base) {
     showLastUpdated(false);
     showLoader(false);
 
-    // Build fallback from USD_FALLBACK
     const usdToBase = USD_FALLBACK[base] || 1;
     const fallback  = {};
     Object.keys(USD_FALLBACK).forEach(c => { fallback[c] = USD_FALLBACK[c] / usdToBase; });
@@ -187,7 +192,7 @@ async function doConvert() {
   const amount = parseFloat(amountEl?.value) || 0;
 
   if (amount <= 0) {
-    setResult('—', '');
+    setResult('—', 'Please enter a valid amount');
     return;
   }
 
@@ -205,7 +210,6 @@ async function doConvert() {
     maximumFractionDigits: converted >= 100 ? 2 : 4
   });
 
-  // Get names for display
   const fromEntry = ALL_CURRENCIES.find(c => c[0] === from);
   const toEntry   = ALL_CURRENCIES.find(c => c[0] === to);
   const toFlag    = toEntry   ? toEntry[2]   : '';
@@ -216,11 +220,9 @@ async function doConvert() {
     `1 ${from} = ${rate.toFixed(4)} ${to}   |   1 ${to} = ${(1/rate).toFixed(4)} ${from}`
   );
 
-  // Update base label in rate table heading
   const baseLbl = document.getElementById('base-label');
   if (baseLbl) baseLbl.textContent = from;
 
-  // Render rate table
   renderRateTable(from, rates, amount);
 }
 
@@ -257,14 +259,13 @@ function renderRateTable(base, rates, amount) {
   const tbody = document.getElementById('rate-tbody');
   if (!tbody) return;
 
-  amount = amount || 1;
-
+  const currentAmount = amount || 1;
   const targets = ALL_CURRENCIES.filter(([c]) => c !== base).slice(0, 20);
 
   tbody.innerHTML = targets.map(([code, name, flag]) => {
     const rate = rates[code];
     if (!rate) return '';
-    const converted = (amount * rate).toLocaleString('en-US', {
+    const converted = (currentAmount * rate).toLocaleString('en-US', {
       minimumFractionDigits: 2,
       maximumFractionDigits: rate > 10 ? 2 : 4
     });
@@ -281,7 +282,10 @@ function renderRateTable(base, rates, amount) {
 
 function setConversionTo(code) {
   const toEl = document.getElementById('toCurrency');
-  if (toEl) { toEl.value = code; doConvert(); }
+  if (toEl) { 
+    toEl.value = code; 
+    doConvert(); 
+  }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -290,8 +294,10 @@ function setConversionTo(code) {
    ========================================================= */
 function quickSelect(code) {
   const fromEl = document.getElementById('fromCurrency');
-  if (fromEl) fromEl.value = code;
-  doConvert();
+  if (fromEl) {
+    fromEl.value = code;
+    doConvert();
+  }
 }
 
 function swapCurrencies() {
@@ -305,16 +311,13 @@ function swapCurrencies() {
 }
 
 /* =========================================================
-   INIT
+   INIT — Ensure everything runs on load
    ========================================================= */
 document.addEventListener('DOMContentLoaded', () => {
-  // Step 1: Populate dropdowns with all currencies
+  // Step 1: Fill dropdowns
   populateDropdowns();
 
-  // Step 2: Initial conversion
-  doConvert();
-
-  // Step 3: Wire up change listeners
+  // Step 2: Wire up listeners first
   const fromEl   = document.getElementById('fromCurrency');
   const toEl     = document.getElementById('toCurrency');
   const amountEl = document.getElementById('amount');
@@ -323,7 +326,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (toEl)     toEl.addEventListener('change',    doConvert);
   if (amountEl) amountEl.addEventListener('input', doConvert);
 
-  // Step 4: Listen for global currency selector (header)
+  // Step 3: Run initial conversion
+  doConvert();
+
+  // Step 4: Listen for global events
   document.addEventListener('fkp:currencyChanged', (e) => {
     if (toEl && e.detail?.code) {
       toEl.value = e.detail.code;
