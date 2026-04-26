@@ -1024,3 +1024,307 @@ input:focus, select:focus, button:focus-visible {
 @media (max-width: 420px) {
   .features-grid-4 { grid-template-columns: 1fr; }
 }
+
+/* ============================================================
+   CURRENCY SELECTOR — Professional Fintech Dropdown
+   Fixed: replaces broken browser-default button rendering
+   with a clean, card-style dropdown matching site design
+   ============================================================ */
+
+/* ── Outer wrapper ── */
+.fkp-cur-wrap {
+  position: relative;
+  display: inline-block;
+  z-index: 2000;
+}
+
+/* ── Trigger button in header ── */
+.fkp-cur-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.42rem 0.72rem 0.42rem 0.58rem;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-family: var(--font);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--t);
+  white-space: nowrap;
+  letter-spacing: 0.025em;
+  user-select: none;
+  line-height: 1;
+}
+.fkp-cur-btn:hover {
+  border-color: var(--accent);
+  background: rgba(245,166,35,0.06);
+  color: var(--text-primary);
+}
+.fkp-cur-wrap.open .fkp-cur-btn {
+  border-color: var(--accent);
+  background: rgba(245,166,35,0.06);
+  box-shadow: 0 0 0 3px rgba(245,166,35,0.14);
+}
+[data-theme="dark"] .fkp-cur-btn {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.1);
+}
+[data-theme="dark"] .fkp-cur-btn:hover {
+  border-color: var(--accent);
+  background: rgba(245,166,35,0.08);
+}
+[data-theme="dark"] .fkp-cur-wrap.open .fkp-cur-btn {
+  border-color: var(--accent);
+  background: rgba(245,166,35,0.1);
+}
+
+/* Flag emoji inside trigger */
+.fkp-cur-flag {
+  font-size: 1rem;
+  line-height: 1;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Currency code text e.g. "PKR" */
+.fkp-cur-code-btn {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+/* Chevron arrow — rotates when open */
+.fkp-cur-arrow {
+  color: var(--text-muted);
+  transition: transform var(--t), color var(--t);
+  flex-shrink: 0;
+  margin-left: 1px;
+  display: block;
+}
+.fkp-cur-wrap.open .fkp-cur-arrow {
+  transform: rotate(180deg);
+  color: var(--accent);
+}
+
+/* ── Dropdown panel ── */
+.fkp-cur-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 296px;
+  max-width: calc(100vw - 1.5rem);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow:
+    0 2px 4px rgba(10,22,40,0.04),
+    0 8px 28px rgba(10,22,40,0.12),
+    0 20px 48px rgba(10,22,40,0.08);
+  overflow: hidden;
+  /* Hidden by default */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px) scale(0.975);
+  transform-origin: top right;
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+  pointer-events: none;
+}
+[data-theme="dark"] .fkp-cur-dropdown {
+  background: #0F1E35;
+  border-color: rgba(255,255,255,0.08);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.2),
+    0 8px 28px rgba(0,0,0,0.45),
+    0 20px 48px rgba(0,0,0,0.3);
+}
+/* Open state */
+.fkp-cur-dropdown.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* ── Search bar inside dropdown ── */
+.fkp-cur-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.72rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  border-radius: 16px 16px 0 0;
+}
+[data-theme="dark"] .fkp-cur-search-wrap {
+  background: rgba(255,255,255,0.03);
+  border-bottom-color: rgba(255,255,255,0.07);
+}
+
+.fkp-cur-search-icon {
+  font-size: 0.82rem;
+  opacity: 0.45;
+  flex-shrink: 0;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Search input — strips all global input styles */
+.fkp-cur-search {
+  flex: 1;
+  min-width: 0;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0;
+  font-family: var(--font);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  -webkit-appearance: none;
+  appearance: none;
+}
+.fkp-cur-search::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
+  opacity: 1;
+}
+.fkp-cur-search:focus,
+.fkp-cur-search:focus-visible {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* ── Scrollable list ── */
+.fkp-cur-list {
+  max-height: 268px;
+  overflow-y: auto;
+  padding: 0.3rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.fkp-cur-list::-webkit-scrollbar { width: 4px; }
+.fkp-cur-list::-webkit-scrollbar-track { background: transparent; }
+.fkp-cur-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.fkp-cur-list::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ── Section divider labels ── */
+.fkp-cur-divider {
+  font-size: 0.67rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0.6rem 0.7rem 0.28rem;
+  user-select: none;
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+/* ── Individual currency item button ── */
+.fkp-cur-item {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  padding: 0.48rem 0.7rem;
+  background: none;
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font);
+  color: var(--text-primary);
+  transition: background 0.12s ease;
+  min-height: 40px;
+  position: relative;
+}
+.fkp-cur-item:hover { background: var(--bg); }
+.fkp-cur-item.active { background: rgba(245,166,35,0.09); }
+[data-theme="dark"] .fkp-cur-item:hover { background: rgba(255,255,255,0.05); }
+[data-theme="dark"] .fkp-cur-item.active { background: rgba(245,166,35,0.1); }
+
+/* Flag inside list item */
+.fkp-cur-item .fkp-cur-flag {
+  font-size: 1.1rem;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 22px;
+  text-align: center;
+}
+
+/* Code + full name column */
+.fkp-cur-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  gap: 0.08rem;
+}
+.fkp-cur-code {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.03em;
+  line-height: 1.25;
+}
+.fkp-cur-name {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+/* Symbol on the right */
+.fkp-cur-sym {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-light);
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+  min-width: 24px;
+  text-align: right;
+}
+
+/* Checkmark for the active/selected currency */
+.fkp-cur-check {
+  font-size: 0.72rem;
+  color: var(--accent);
+  font-weight: 900;
+  flex-shrink: 0;
+  margin-left: 2px;
+}
+/* Hide symbol when checkmark is visible */
+.fkp-cur-item.active .fkp-cur-sym { display: none; }
+
+/* No results message */
+.fkp-cur-empty {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.83rem;
+  line-height: 1.5;
+}
+
+/* Mobile: flip to open from left edge */
+@media (max-width: 500px) {
+  .fkp-cur-dropdown {
+    right: auto;
+    left: 0;
+    width: 274px;
+    transform-origin: top left;
+  }
+}
