@@ -977,3 +977,50 @@ input:focus, select:focus, button:focus-visible {
   font-weight: 400;
   font-size: 1.05em;
 }
+
+/* === FEATURES GRID 4-col (Why/How sections on homepage) === */
+.features-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+/* === SEO CONTENT CARD === */
+.seo-content-card {
+  background: linear-gradient(135deg, var(--card-bg) 0%, var(--bg-alt) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.seo-content-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--accent), #FF8A00, var(--teal));
+}
+.seo-content-card h2 {
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  font-weight: 800; letter-spacing: -0.03em;
+  margin-bottom: 1rem; color: var(--text-primary);
+}
+.seo-content-card p {
+  color: var(--text-muted);
+  font-size: 0.92rem; line-height: 1.8;
+  margin-bottom: 0.75rem;
+}
+.seo-content-card p:last-child { margin-bottom: 0; }
+
+
+/* === FEATURES GRID 4 RESPONSIVE === */
+@media (max-width: 1024px) {
+  .features-grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .features-grid-4 { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+}
+@media (max-width: 420px) {
+  .features-grid-4 { grid-template-columns: 1fr; }
+}
