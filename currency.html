@@ -125,60 +125,61 @@
   <main id="main-content">
 
     <nav aria-label="Breadcrumb" style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1.25rem;">
-      <a href="index.html" style="color:var(--text-muted);">Home</a>
-      <span style="margin:0 0.4rem;">›</span>
+      <a href="index.html" style="color:var(--text-muted); text-decoration:none;">Home</a>
+      <span style="margin:0 0.4rem; opacity:0.5;">›</span>
       <span style="color:var(--text-primary);font-weight:600;">Currency Converter</span>
     </nav>
 
     <h1 class="page-title">💱 Live Currency Converter 2026</h1>
     <p class="page-subtitle">Real-time exchange rates for USD, EUR, GBP, PKR, JPY, and 160+ currencies — updated every hour, free worldwide</p>
 
-    <!-- MAIN CONVERTER CARD -->
     <div class="card" style="max-width:820px;margin:0 auto;animation-delay:0.05s;position:relative;">
 
-      <!-- Warning Banner -->
-      <div id="rate-warning" class="hidden" role="alert" style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:0.75rem 1rem;margin-bottom:1.25rem;font-size:0.82rem;color:var(--danger);">
-        ⚠️ Live rates unavailable. Showing cached rates from <span id="cache-date">—</span>.
+      <div id="rate-warning" class="hidden" role="alert" style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:12px;padding:0.75rem 1rem;margin-bottom:1.25rem;font-size:0.82rem;color:var(--danger); display:flex; align-items:center; gap:0.5rem;">
+        <span>⚠️</span> Live rates unavailable. Showing cached rates from <span id="cache-date">—</span>.
       </div>
 
-      <!-- AMOUNT INPUT -->
       <div class="form-group">
         <label for="amount">Amount to Convert</label>
-        <input type="number" id="amount" value="1" min="0" max="999999999" step="any"
-          placeholder="Enter amount" aria-label="Amount to convert">
-      </div>
-
-      <!-- FROM / SWAP / TO ROW -->
-      <div class="currency-main-row" style="margin-bottom:1.25rem;">
-        <div>
-          <label for="fromCurrency" style="display:block;font-size:0.8rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;">From Currency</label>
-          <select id="fromCurrency" style="font-family:var(--font-mono);font-size:0.9rem;font-weight:500;" aria-label="Convert from currency"></select>
-        </div>
-        <button class="swap-btn" id="swap-btn" onclick="swapCurrencies()" title="Swap currencies" aria-label="Swap from and to currencies">⇄</button>
-        <div>
-          <label for="toCurrency" style="display:block;font-size:0.8rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;">To Currency</label>
-          <select id="toCurrency" style="font-family:var(--font-mono);font-size:0.9rem;font-weight:500;" aria-label="Convert to currency"></select>
+        <div style="position:relative;">
+            <input type="number" id="amount" value="1" min="0" max="999999999" step="any"
+              placeholder="Enter amount" aria-label="Amount to convert"
+              style="padding-left:1rem; font-size:1.1rem; font-weight:600;">
         </div>
       </div>
 
-      <!-- LOADER OVERLAY -->
+      <div class="currency-main-row" style="margin-bottom:1.5rem; display: flex; align-items: flex-end; gap: 1rem;">
+        <div style="flex:1;">
+          <label for="fromCurrency" style="display:block;font-size:0.75rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.6rem;">From</label>
+          <select id="fromCurrency" style="font-family:var(--font-mono);font-size:0.95rem;font-weight:600; width:100%;" aria-label="Convert from currency"></select>
+        </div>
+        
+        <button class="swap-btn" id="swap-btn" onclick="swapCurrencies()" title="Swap currencies" aria-label="Swap from and to currencies" 
+                style="margin-bottom: 0.25rem; height: 48px; width: 48px; display: flex; align-items: center; justify-content: center; background: var(--primary); color: white; border-radius: 50%; border: none; cursor: pointer; transition: transform 0.3s ease;">
+          <span style="font-size: 1.4rem;">⇄</span>
+        </button>
+        
+        <div style="flex:1;">
+          <label for="toCurrency" style="display:block;font-size:0.75rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.6rem;">To</label>
+          <select id="toCurrency" style="font-family:var(--font-mono);font-size:0.95rem;font-weight:600; width:100%;" aria-label="Convert to currency"></select>
+        </div>
+      </div>
+
       <div class="loader-overlay hidden" id="loader-overlay" role="status" aria-label="Loading live exchange rates">
         <div class="loader"></div>
       </div>
 
-      <!-- RESULT SECTION -->
-      <div id="result-section" role="region" aria-live="polite" aria-label="Currency conversion result">
-        <div class="big-result" id="big-result">—</div>
-        <div class="last-updated" id="last-updated">Fetching live rates...</div>
-        <div style="font-size:0.85rem;color:var(--text-muted);padding-bottom:0.5rem;">
+      <div id="result-section" class="card-inner-glass" style="background: var(--bg-alt); padding: 1.5rem; border-radius: 16px; text-align: center; margin-bottom: 1.5rem;" role="region" aria-live="polite">
+        <div class="big-result" id="big-result" style="font-size: 2.2rem; font-weight: 800; color: var(--accent); margin-bottom: 0.5rem;">—</div>
+        <div class="last-updated" id="last-updated" style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">Fetching live rates...</div>
+        <div style="font-size:0.9rem; font-weight: 500; color:var(--text-primary);">
           <span id="rate-detail"></span>
         </div>
       </div>
 
-      <!-- QUICK SELECT BUTTONS -->
-      <div style="margin-top:0.75rem;">
-        <p style="font-size:0.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Quick Select — From Currency</p>
-        <div class="quick-btns" id="quick-btns" role="group" aria-label="Quick currency selection">
+      <div>
+        <p style="font-size:0.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem;">Quick Select — From Currency</p>
+        <div class="quick-btns" id="quick-btns" role="group" aria-label="Quick currency selection" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;">
           <button class="quick-btn" onclick="quickSelect('USD')" aria-label="Select US Dollar">🇺🇸 USD</button>
           <button class="quick-btn" onclick="quickSelect('EUR')" aria-label="Select Euro">🇪🇺 EUR</button>
           <button class="quick-btn" onclick="quickSelect('GBP')" aria-label="Select British Pound">🇬🇧 GBP</button>
@@ -191,97 +192,87 @@
       </div>
     </div>
 
-    <!-- AD BANNER -->
-    <div class="ad-banner" style="max-width:820px;margin:1.5rem auto;" aria-label="Advertisement">
-      <p>[ Google AdSense — 728×90 ] <!-- Replace with AdSense script --></p>
+    <div class="ad-banner" style="max-width:820px;margin:1.5rem auto; min-height:90px; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.02); border:1px dashed var(--border); border-radius:12px;" aria-label="Advertisement">
+      <p style="font-size:0.7rem; color:var(--text-muted);">[ Google AdSense — 728×90 ]</p>
     </div>
 
-    <!-- RATE TABLE -->
-    <div class="card" style="max-width:820px;margin:0 auto;animation-delay:0.10s;">
-      <h2 class="card-title">Live Exchange Rates — <span id="base-label">USD</span> to Major World Currencies</h2>
-      <div class="table-wrap">
-        <table id="rate-table" aria-label="Live currency exchange rate table">
+    <div class="card" style="max-width:820px;margin:0 auto;animation-delay:0.10s; overflow:hidden;">
+      <h2 class="card-title" style="margin-bottom: 1.25rem;">Live Exchange Rates — <span id="base-label" style="color:var(--accent);">USD</span> to Major Currencies</h2>
+      <div class="table-wrap" style="border-radius: 12px; border: 1px solid var(--border);">
+        <table id="rate-table" style="width: 100%; border-collapse: collapse;" aria-label="Live currency exchange rate table">
           <thead>
-            <tr>
-              <th scope="col" style="text-align:left;">Currency Name</th>
-              <th scope="col">Code</th>
-              <th scope="col">Rate</th>
-              <th scope="col">Inverse Rate</th>
+            <tr style="background: var(--bg-alt);">
+              <th scope="col" style="text-align:left; padding: 1rem;">Currency</th>
+              <th scope="col" style="padding: 1rem;">Code</th>
+              <th scope="col" style="padding: 1rem; text-align: right;">Rate</th>
+              <th scope="col" style="padding: 1rem; text-align: right;">Inverse</th>
             </tr>
           </thead>
           <tbody id="rate-tbody">
-            <tr><td colspan="4" style="text-align:center;padding:2rem;color:var(--text-muted);" aria-busy="true">Loading live exchange rates...</td></tr>
+            <tr><td colspan="4" style="text-align:center;padding:3rem;color:var(--text-muted);" aria-busy="true">
+                <div class="loader" style="margin: 0 auto 1rem;"></div>
+                Updating rates...
+            </td></tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- SEO CONTENT — Global Guide -->
     <section style="margin-top:2rem;max-width:820px;margin-left:auto;margin-right:auto;" aria-labelledby="currency-guide-heading">
       <div class="card" style="padding:2rem;">
-        <h2 id="currency-guide-heading" style="font-size:1.3rem;font-weight:800;letter-spacing:-0.03em;margin-bottom:1rem;">Live Currency Exchange Rate Guide 2026</h2>
+        <h2 id="currency-guide-heading" style="font-size:1.4rem;font-weight:800;letter-spacing:-0.03em;margin-bottom:1.25rem; color:var(--primary-light);">Live Currency Exchange Rate Guide 2026</h2>
 
-        <p style="color:var(--text-muted);font-size:0.9rem;line-height:1.8;margin-bottom:1rem;">
-          This <strong>free live currency converter</strong> provides real-time exchange rates for <strong>USD, EUR, GBP, JPY, CAD, AUD, CHF, CNY, INR, PKR, AED, SAR</strong>, and 160+ other global currencies. Rates are fetched from a professional market data API and cached for one hour to ensure speed and reliability.
+        <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.8;margin-bottom:1.5rem;">
+          This <strong>free live currency converter</strong> provides real-time exchange rates for <strong>USD, EUR, GBP, JPY, CAD, AUD, CHF, CNY, INR, PKR, AED, SAR</strong>, and 160+ other global currencies. Rates are fetched from professional market data APIs every hour to ensure accuracy for your international trade and travel needs.
         </p>
 
-        <h3 style="font-size:1rem;font-weight:700;margin:1rem 0 0.5rem;">Major Currency Pairs — Approximate 2026 Reference Rates</h3>
-        <div style="overflow-x:auto;border-radius:var(--radius-md);border:1px solid var(--border);margin-bottom:1rem;">
-          <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+        <h3 style="font-size:1.1rem;font-weight:700;margin:1.5rem 0 0.75rem;">Major Currency Pairs — 2026 Reference Rates</h3>
+        <div style="overflow-x:auto;border-radius:12px;border:1px solid var(--border);margin-bottom:1.25rem;">
+          <table style="width:100%;border-collapse:collapse;font-size:0.9rem;">
             <thead style="background:var(--primary);color:#fff;">
               <tr>
-                <th style="padding:0.75rem 1rem;text-align:left;">Currency Pair</th>
-                <th style="padding:0.75rem 1rem;text-align:right;">Approx. Rate</th>
-                <th style="padding:0.75rem 1rem;text-align:right;">Common Use</th>
+                <th style="padding:0.85rem 1rem;text-align:left;">Currency Pair</th>
+                <th style="padding:0.85rem 1rem;text-align:right;">Approx. Rate</th>
+                <th style="padding:0.85rem 1rem;text-align:right;">Usage</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td style="padding:0.7rem 1rem;border-bottom:1px solid var(--border);">USD to EUR</td><td style="padding:0.7rem 1rem;text-align:right;border-bottom:1px solid var(--border);font-family:var(--font-mono);">~0.92</td><td style="padding:0.7rem 1rem;text-align:right;border-bottom:1px solid var(--border);">Trade, Travel</td></tr>
-              <tr style="background:var(--bg);"><td style="padding:0.7rem 1rem;border-bottom:1px solid var(--border);">USD to GBP</td><td style="padding:0.7rem 1rem;text-align:right;border-bottom:1px solid var(--border);font-family:var(--font-mono);">~0.79</td><td style="padding:0.7rem 1rem;text-align:right;border-bottom:1px solid var(--border);">UK Trade</td></tr>
-              <tr><td style="padding:0.7rem 1rem;border-bottom:1px solid var(--border);">USD to JPY</td><td style="padding:0.7rem 1rem;text-align:right;border-bottom:1px solid var(--border);font-family:var(--font-mono);">~149–155</td><td style="padding:0.7rem 1rem;text-align:right;border-bottom:1px solid var(--border);">Asia Trade</td></tr>
-              <tr style="background:var(--bg);"><td style="padding:0.7rem 1rem;border-bottom:1px solid var(--border);">USD to CAD</td><td style="padding:0.7rem 1rem;text-align:right;border-bottom:1px solid var(--border);font-family:var(--font-mono);">~1.36</td><td style="padding:0.7rem 1rem;text-align:right;border-bottom:1px solid var(--border);">North America</td></tr>
-              <tr><td style="padding:0.7rem 1rem;border-bottom:1px solid var(--border);">USD to AUD</td><td style="padding:0.7rem 1rem;text-align:right;border-bottom:1px solid var(--border);font-family:var(--font-mono);">~1.52</td><td style="padding:0.7rem 1rem;text-align:right;border-bottom:1px solid var(--border);">Pacific Trade</td></tr>
-              <tr style="background:var(--bg);"><td style="padding:0.7rem 1rem;border-bottom:1px solid var(--border);">USD to PKR</td><td style="padding:0.7rem 1rem;text-align:right;border-bottom:1px solid var(--border);font-family:var(--font-mono);">~278–285</td><td style="padding:0.7rem 1rem;text-align:right;border-bottom:1px solid var(--border);">South Asia</td></tr>
-              <tr><td style="padding:0.7rem 1rem;border-bottom:1px solid var(--border);">USD to INR</td><td style="padding:0.7rem 1rem;text-align:right;border-bottom:1px solid var(--border);font-family:var(--font-mono);">~83–85</td><td style="padding:0.7rem 1rem;text-align:right;border-bottom:1px solid var(--border);">India Trade</td></tr>
-              <tr style="background:var(--bg);"><td style="padding:0.7rem 1rem;">USD to AED</td><td style="padding:0.7rem 1rem;text-align:right;font-family:var(--font-mono);">~3.67</td><td style="padding:0.7rem 1rem;text-align:right;">Gulf Region</td></tr>
+              <tr><td style="padding:0.8rem 1rem;border-bottom:1px solid var(--border);">USD to EUR</td><td style="padding:0.8rem 1rem;text-align:right;border-bottom:1px solid var(--border);font-family:var(--font-mono);">0.92</td><td style="padding:0.8rem 1rem;text-align:right;border-bottom:1px solid var(--border);">Global Trade</td></tr>
+              <tr style="background:var(--bg-alt);"><td style="padding:0.8rem 1rem;border-bottom:1px solid var(--border);">USD to GBP</td><td style="padding:0.8rem 1rem;text-align:right;border-bottom:1px solid var(--border);font-family:var(--font-mono);">0.79</td><td style="padding:0.8rem 1rem;text-align:right;border-bottom:1px solid var(--border);">UK Finance</td></tr>
+              <tr><td style="padding:0.8rem 1rem;border-bottom:1px solid var(--border);">USD to PKR</td><td style="padding:0.8rem 1rem;text-align:right;border-bottom:1px solid var(--border);font-family:var(--font-mono);">278.50</td><td style="padding:0.8rem 1rem;text-align:right;border-bottom:1px solid var(--border);">Remittances</td></tr>
+              <tr style="background:var(--bg-alt);"><td style="padding:0.8rem 1rem;">USD to AED</td><td style="padding:0.8rem 1rem;text-align:right;font-family:var(--font-mono);">3.67</td><td style="padding:0.8rem 1rem;text-align:right;">Gulf Trade</td></tr>
             </tbody>
           </table>
         </div>
 
-        <p style="color:var(--text-muted);font-size:0.82rem;">
-          ⚠️ <strong>Note:</strong> Rates shown are approximate reference values. Always use the live converter above for current rates before making any financial transactions. Currency markets fluctuate continuously.
+        <p style="color:var(--text-muted);font-size:0.85rem; padding:1rem; background:rgba(0,0,0,0.03); border-radius:8px;">
+          ⚠️ <strong>Disclaimer:</strong> Financial markets are volatile. Rates provided are for informational purposes only. Please verify with your bank before committing to large transactions.
         </p>
       </div>
     </section>
 
-    <!-- POPULAR CONVERSION PAIRS — Internal SEO Links -->
     <section style="margin:1.5rem auto 2rem;max-width:820px;" aria-labelledby="popular-heading">
       <div class="card" style="padding:1.5rem;">
-        <h2 id="popular-heading" style="font-size:1rem;font-weight:700;margin-bottom:1rem;">Popular Currency Conversions</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0.5rem;">
-          <button class="quick-btn" style="justify-content:flex-start;padding:0.6rem 0.85rem;" onclick="setConversion('USD','EUR')">USD → EUR</button>
-          <button class="quick-btn" style="justify-content:flex-start;padding:0.6rem 0.85rem;" onclick="setConversion('USD','GBP')">USD → GBP</button>
-          <button class="quick-btn" style="justify-content:flex-start;padding:0.6rem 0.85rem;" onclick="setConversion('USD','JPY')">USD → JPY</button>
-          <button class="quick-btn" style="justify-content:flex-start;padding:0.6rem 0.85rem;" onclick="setConversion('EUR','USD')">EUR → USD</button>
-          <button class="quick-btn" style="justify-content:flex-start;padding:0.6rem 0.85rem;" onclick="setConversion('GBP','USD')">GBP → USD</button>
-          <button class="quick-btn" style="justify-content:flex-start;padding:0.6rem 0.85rem;" onclick="setConversion('USD','CAD')">USD → CAD</button>
-          <button class="quick-btn" style="justify-content:flex-start;padding:0.6rem 0.85rem;" onclick="setConversion('USD','AUD')">USD → AUD</button>
-          <button class="quick-btn" style="justify-content:flex-start;padding:0.6rem 0.85rem;" onclick="setConversion('USD','PKR')">USD → PKR</button>
-          <button class="quick-btn" style="justify-content:flex-start;padding:0.6rem 0.85rem;" onclick="setConversion('USD','INR')">USD → INR</button>
-          <button class="quick-btn" style="justify-content:flex-start;padding:0.6rem 0.85rem;" onclick="setConversion('USD','AED')">USD → AED</button>
-          <button class="quick-btn" style="justify-content:flex-start;padding:0.6rem 0.85rem;" onclick="setConversion('GBP','EUR')">GBP → EUR</button>
-          <button class="quick-btn" style="justify-content:flex-start;padding:0.6rem 0.85rem;" onclick="setConversion('EUR','GBP')">EUR → GBP</button>
+        <h2 id="popular-heading" style="font-size:1.1rem;font-weight:700;margin-bottom:1.25rem;">Popular Conversions</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0.75rem;">
+          <button class="quick-btn" style="justify-content:center;" onclick="setConversion('USD','EUR')">USD → EUR</button>
+          <button class="quick-btn" style="justify-content:center;" onclick="setConversion('USD','GBP')">USD → GBP</button>
+          <button class="quick-btn" style="justify-content:center;" onclick="setConversion('EUR','USD')">EUR → USD</button>
+          <button class="quick-btn" style="justify-content:center;" onclick="setConversion('GBP','USD')">GBP → USD</button>
+          <button class="quick-btn" style="justify-content:center;" onclick="setConversion('USD','PKR')">USD → PKR</button>
+          <button class="quick-btn" style="justify-content:center;" onclick="setConversion('USD','INR')">USD → INR</button>
+          <button class="quick-btn" style="justify-content:center;" onclick="setConversion('USD','AED')">USD → AED</button>
+          <button class="quick-btn" style="justify-content:center;" onclick="setConversion('GBP','EUR')">GBP → EUR</button>
         </div>
       </div>
     </section>
 
-    <!-- RELATED TOOLS -->
-    <section style="margin:0 0 2rem;padding:1.25rem;background:var(--bg);border-radius:var(--radius-lg);border:1px solid var(--border);max-width:820px;margin-left:auto;margin-right:auto;" aria-label="Related financial tools">
-      <h2 style="font-size:0.95rem;font-weight:700;margin-bottom:0.75rem;">Related Financial Tools</h2>
-      <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
-        <a href="emi.html" class="btn btn-secondary" style="font-size:0.85rem;">📊 EMI Calculator</a>
-        <a href="loan.html" class="btn btn-secondary" style="font-size:0.85rem;">🏦 Loan Calculator</a>
-        <a href="calculator.html" class="btn btn-secondary" style="font-size:0.85rem;">🔢 Scientific Calculator</a>
+    <section style="margin:0 0 3rem;padding:1.5rem;background:var(--bg-alt);border-radius:24px;border:1px solid var(--border);max-width:820px;margin-left:auto;margin-right:auto; text-align:center;" aria-label="Related tools">
+      <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:1rem;">Explore Other Tools</h2>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap; justify-content:center;">
+        <a href="emi.html" class="btn btn-secondary" style="border-radius:12px;">📊 EMI Calculator</a>
+        <a href="loan.html" class="btn btn-secondary" style="border-radius:12px;">🏦 Loan Calculator</a>
+        <a href="calculator.html" class="btn btn-secondary" style="border-radius:12px;">🔢 Scientific Calculator</a>
       </div>
     </section>
 
@@ -313,9 +304,19 @@
     const toEl   = document.getElementById('toCurrency');
     if (fromEl) fromEl.value = from;
     if (toEl)   toEl.value   = to;
-    fetchRates(from);
-    // Scroll to converter
-    document.querySelector('.card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+    // Check if fetchRates exists in currency.js, otherwise fallback to doConvert
+    if (typeof fetchRates === 'function') {
+        fetchRates(from);
+    } else if (typeof doConvert === 'function') {
+        doConvert();
+    }
+    
+    // Smooth scroll to converter card
+    const converterCard = document.querySelector('.card');
+    if(converterCard) {
+        converterCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   }
   </script>
 </body>
