@@ -1,8 +1,498 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       FINANCEKIT PRO — COMPLETE SITEMAP 2026
+       Website : https://financekit.tech
+       Generated: 2026-05-01
+       Total URLs: 80
+       Keywords : free online calculator, live currency converter,
+                  Bitcoin price today, gold price today, EMI calculator,
+                  BMI calculator, compound interest calculator,
+                  USD to PKR live rate, mortgage calculator, SIP calculator
+  ══════════════════════════════════════════════════════════════════ -->
+
+  <!-- ═══════════════════════════════
+       HOMEPAGE
+  ═══════════════════════════════ -->
   <url>
     <loc>https://financekit.tech/</loc>
-    <lastmod>2026-04-26</lastmod>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       FINANCIAL CALCULATORS — Loan, EMI & Mortgage
+       Keywords: free EMI calculator online 2026, home loan EMI calculator,
+       car loan calculator, mortgage calculator, loan amortization schedule,
+       personal loan EMI calculator, prepayment calculator
+  ═══════════════════════════════════════════════════════════════ -->
+  <url>
+    <loc>https://financekit.tech/emi.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/loan.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/home-loan.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/car-loan.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/personal-loan.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/mortgage.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/prepayment.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       FINANCIAL CALCULATORS — Investments & Returns
+       Keywords: SIP calculator India, compound interest calculator online,
+       fixed deposit calculator, retirement planner calculator,
+       inflation calculator, investment return calculator
+  ═══════════════════════════════════════════════════════════════ -->
+  <url>
+    <loc>https://financekit.tech/sip.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/fd.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/compound-interest.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/retirement.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/inflation.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/investment.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.87</priority>
+  </url>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       FINANCIAL CALCULATORS — Tax, Salary & Everyday
+       Keywords: salary calculator online free, GST calculator India Pakistan,
+       income tax calculator 2026, tip calculator, discount calculator
+  ═══════════════════════════════════════════════════════════════ -->
+  <url>
+    <loc>https://financekit.tech/tax.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/gst.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/salary.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/tip.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/discount.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       CURRENCY CONVERTER
+       Keywords: live currency converter, USD to PKR today, dollar to rupee,
+       EUR to USD, currency exchange rate today, online forex converter 2026
+  ═══════════════════════════════════════════════════════════════ -->
+  <url>
+    <loc>https://financekit.tech/currency.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.97</priority>
+  </url>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       CRYPTO & LIVE MARKETS — Prices
+       Keywords: Bitcoin price today USD 2026, Ethereum price today,
+       live crypto prices, BTC to USD, ETH to USD, top 50 crypto prices,
+       live gold price today, silver price today, WTI crude oil price
+  ═══════════════════════════════════════════════════════════════ -->
+  <url>
+    <loc>https://financekit.tech/crypto.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.97</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/btc-usd.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.97</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/eth-usd.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.93</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/gold.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.93</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/oil.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/silver.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/fear-greed.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.87</priority>
+  </url>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       CRYPTO TOOLS
+       Keywords: crypto converter tool, crypto profit loss calculator,
+       dollar cost averaging calculator crypto, DCA Bitcoin calculator
+  ═══════════════════════════════════════════════════════════════ -->
+  <url>
+    <loc>https://financekit.tech/crypto-converter.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/crypto-profit.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/dca.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       FOREX / TRADING TOOLS
+       Keywords: forex pip calculator online free, position size calculator
+       forex, lot size calculator, trading risk management calculator
+  ═══════════════════════════════════════════════════════════════ -->
+  <url>
+    <loc>https://financekit.tech/pip.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/position-size.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       HEALTH & FITNESS CALCULATORS
+       Keywords: BMI calculator online free 2026, calorie calculator TDEE,
+       body fat percentage calculator, BMR calculator, ideal weight calculator,
+       pregnancy due date calculator, daily water intake calculator,
+       running pace calculator
+  ═══════════════════════════════════════════════════════════════ -->
+  <url>
+    <loc>https://financekit.tech/health-calculators.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/bmi.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.93</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/calorie.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/body-fat.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/body-calorie.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.83</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/bmr.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/ideal-weight.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.83</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/pregnancy.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/due-date.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.83</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/water-intake.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/pace.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       MATH, SCIENCE & CONVERTER TOOLS
+       Keywords: free online scientific calculator, percentage calculator online,
+       fraction calculator, standard deviation calculator, random number generator,
+       age calculator online, date difference calculator, time zone converter,
+       GPA calculator, number to words converter, binary decimal hex converter,
+       Roman numeral converter, secure password generator
+  ═══════════════════════════════════════════════════════════════ -->
+  <url>
+    <loc>https://financekit.tech/calculator.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/percentage.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/fraction.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/standard-deviation.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/random-number.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/age.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/date.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/time-zone.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/gpa.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/number-to-words.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/roman-numerals.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/binary.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/password.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       NEWS & ECONOMIC CALENDAR
+       Keywords: forex economic calendar 2026, NFP calendar, CPI release
+       date, central bank interest rate decision calendar, GDP release
+  ═══════════════════════════════════════════════════════════════ -->
+  <url>
+    <loc>https://financekit.tech/economic-calendar.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.93</priority>
+  </url>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       BLOG — SEO Content Pages
+       Keywords: how to calculate EMI step by step, USD to PKR rate today,
+       Bitcoin price prediction today, gold price forecast 2026,
+       how to calculate BMI correctly
+  ═══════════════════════════════════════════════════════════════ -->
+  <url>
+    <loc>https://financekit.tech/blog.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/blog/emi-calculator-guide.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/blog/usd-to-pkr-live-rate.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/blog/bitcoin-price-today.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/blog/gold-price-today.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/blog/how-to-calculate-bmi.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       UTILITY & LEGAL
+  ═══════════════════════════════════════════════════════════════ -->
+  <url>
+    <loc>https://financekit.tech/about.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/privacy.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.50</priority>
+  </url>
+  <url>
+    <loc>https://financekit.tech/terms.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.50</priority>
+  </url>
+
 </urlset>
